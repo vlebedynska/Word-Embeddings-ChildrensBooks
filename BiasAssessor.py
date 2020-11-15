@@ -1,0 +1,2 @@
+class BiasAssessor:
+    pass

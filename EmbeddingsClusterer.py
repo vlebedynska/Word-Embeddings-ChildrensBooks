@@ -1,0 +1,2 @@
+class EmbeddigsClusterer:
+    pass

@@ -160,7 +160,7 @@ def print_line(f, cluster, majority_gender, cluster_desc, m_words, f_words, p_va
 
 def main():
     #model = load("model", "cbt_train.txt", "w2v")
-    model = load("corpus/gap-full.bin", "none", "ft")
+    model = load("data/gap-full.bin", "none", "ft")
 
 
     m = ['male', 'man', 'boy', 'brother', 'he', 'him', 'his', 'son', 'father', 'uncle', 'grandfather']
