@@ -7,6 +7,8 @@ import numpy as np
 from gensim.models import Word2Vec
 from sklearn.cluster import MiniBatchKMeans
 
+from ModelHandler import ModelHandler
+
 
 def load(model_name, corpus_name, modeltype, force=False):
     if modeltype == "w2v":
@@ -160,8 +162,8 @@ def print_line(f, cluster, majority_gender, cluster_desc, m_words, f_words, p_va
 
 def main():
     #model = load("model", "cbt_train.txt", "w2v")
-    model = load("data/gap-full.bin", "none", "ft")
-
+    # model = load("data/gap-full.bin", "none", "ft")
+    model = ModelHandler("model1", "data/ChiLit_Corpus", "w2v").model
 
     m = ['male', 'man', 'boy', 'brother', 'he', 'him', 'his', 'son', 'father', 'uncle', 'grandfather']
     f = ['female', 'woman', 'girl', 'sister', 'she', 'her', 'hers', 'daughter', 'mother', 'aunt', 'grandmother']
@@ -176,62 +178,62 @@ def main():
     print(format(model.wv.similarity('king', 'weakness')))
 
 
-    mbk = MiniBatchKMeans(init='k-means++', n_clusters=100, batch_size=100, max_no_improvement=10, verbose=0)
-    mbk.fit(model.wv.vectors)
-
-    with open("clustering.txt", 'w') as fout:
-        for word, cluster in zip(model.wv.vocab, mbk.labels_):
-            fout.write("{}\t{}\n".format(word, cluster))
-    print("Done!")
-
-    cluster2word = load_clusters("clustering.txt", model.wv.vocab)
-    with open("clustering_sorted", 'w') as fout:
-        for cluster in sorted(cluster2word.keys()):
-            cluster_words = cluster2word[cluster]
-            cluster_desc = get_cluster_description(model.wv, cluster_words)
-            for word in cluster_words:
-                score = cosine_means_difference(model.wv, word, m, f)
-                gender = 'F' if score < 0 else 'M'
-                fout.write("{}\t{}\t{}\t{}\t{}\n".format(cluster, cluster_desc, word, gender, score))
-    print("Done!")
-
-    last_cluster = None
-    f_words = []
-    f_scores = []
-    m_words = []
-    m_scores = []
-    genders = {'F': 0, 'M': 0}
-    with open("clustering_sorted", 'r') as fga, open("clusering_end", 'w') as fout:
-        for lgassoc in fga:
-            fields = lgassoc.strip().split('\t')
-            cluster = int(fields[0])
-            cluster_desc = fields[1]
-            word = fields[2]
-            gender_score = float(fields[4])
-            if gender_score < 0:
-                f_words.append(word)
-                f_scores.append(gender_score * -1)  # we convert it to a positive value
-                genders['F'] += 1
-            else:
-                m_words.append(word)
-                m_scores.append(gender_score)
-                genders['M'] += 1
-            if last_cluster != cluster and last_cluster is not None:
-                m_words, f_words = choose_words(m_words, f_words, m_scores, f_scores, -1)
-                p_value = weat_rand_test(model.wv, m_words, f_words, m, f, 1000) if not False else "?"
-                cohens_d = get_cohens_d(model.wv,  m_words, f_words, m, f)
-                print_line(fout, cluster, maj_gender(genders), cluster_desc, m_words, f_words, p_value, cohens_d)
-                f_words = []
-                m_words = []
-                f_scores = []
-                m_scores = []
-                genders = {'F': 0, 'M': 0}
-            last_cluster = cluster
-        m_words, f_words = choose_words(m_words, f_words, m_scores, f_scores, -1)
-        p_value = weat_rand_test(model.wv, m_words, f_words, m, f, 1000) if not False else "?"
-        cohens_d = get_cohens_d(model.wv,  m_words, f_words, m, f)
-        print_line(fout, cluster, maj_gender(genders), cluster_desc, m_words, f_words, p_value, cohens_d)
-    print("Done! 3")
+    # mbk = MiniBatchKMeans(init='k-means++', n_clusters=100, batch_size=100, max_no_improvement=10, verbose=0)
+    # mbk.fit(model.wv.vectors)
+    #
+    # with open("clustering.txt", 'w') as fout:
+    #     for word, cluster in zip(model.wv.vocab, mbk.labels_):
+    #         fout.write("{}\t{}\n".format(word, cluster))
+    # print("Done!")
+    #
+    # cluster2word = load_clusters("clustering.txt", model.wv.vocab)
+    # with open("clustering_sorted", 'w') as fout:
+    #     for cluster in sorted(cluster2word.keys()):
+    #         cluster_words = cluster2word[cluster]
+    #         cluster_desc = get_cluster_description(model.wv, cluster_words)
+    #         for word in cluster_words:
+    #             score = cosine_means_difference(model.wv, word, m, f)
+    #             gender = 'F' if score < 0 else 'M'
+    #             fout.write("{}\t{}\t{}\t{}\t{}\n".format(cluster, cluster_desc, word, gender, score))
+    # print("Done!")
+    #
+    # last_cluster = None
+    # f_words = []
+    # f_scores = []
+    # m_words = []
+    # m_scores = []
+    # genders = {'F': 0, 'M': 0}
+    # with open("clustering_sorted", 'r') as fga, open("clusering_end", 'w') as fout:
+    #     for lgassoc in fga:
+    #         fields = lgassoc.strip().split('\t')
+    #         cluster = int(fields[0])
+    #         cluster_desc = fields[1]
+    #         word = fields[2]
+    #         gender_score = float(fields[4])
+    #         if gender_score < 0:
+    #             f_words.append(word)
+    #             f_scores.append(gender_score * -1)  # we convert it to a positive value
+    #             genders['F'] += 1
+    #         else:
+    #             m_words.append(word)
+    #             m_scores.append(gender_score)
+    #             genders['M'] += 1
+    #         if last_cluster != cluster and last_cluster is not None:
+    #             m_words, f_words = choose_words(m_words, f_words, m_scores, f_scores, -1)
+    #             p_value = weat_rand_test(model.wv, m_words, f_words, m, f, 1000) if not False else "?"
+    #             cohens_d = get_cohens_d(model.wv,  m_words, f_words, m, f)
+    #             print_line(fout, cluster, maj_gender(genders), cluster_desc, m_words, f_words, p_value, cohens_d)
+    #             f_words = []
+    #             m_words = []
+    #             f_scores = []
+    #             m_scores = []
+    #             genders = {'F': 0, 'M': 0}
+    #         last_cluster = cluster
+    #     m_words, f_words = choose_words(m_words, f_words, m_scores, f_scores, -1)
+    #     p_value = weat_rand_test(model.wv, m_words, f_words, m, f, 1000) if not False else "?"
+    #     cohens_d = get_cohens_d(model.wv,  m_words, f_words, m, f)
+    #     print_line(fout, cluster, maj_gender(genders), cluster_desc, m_words, f_words, p_value, cohens_d)
+    # print("Done! 3")
 
 
 if __name__ == '__main__':

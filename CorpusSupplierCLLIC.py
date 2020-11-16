@@ -1,4 +1,4 @@
-import CorpusSupplier
+from CorpusSupplier import CorpusSupplier
 
 
 class CorpusSupplierCLLIC(CorpusSupplier):
