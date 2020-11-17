@@ -163,7 +163,7 @@ def print_line(f, cluster, majority_gender, cluster_desc, m_words, f_words, p_va
 def main():
     #model = load("model", "cbt_train.txt", "w2v")
     # model = load("data/gap-full.bin", "none", "ft")
-    model = ModelHandler("model1", "data/ChiLit_Corpus", "w2v").model
+    model = ModelHandler.create_and_load("model2", "data/CLLIP_Corpus", "w2v").model
 
     m = ['male', 'man', 'boy', 'brother', 'he', 'him', 'his', 'son', 'father', 'uncle', 'grandfather']
     f = ['female', 'woman', 'girl', 'sister', 'she', 'her', 'hers', 'daughter', 'mother', 'aunt', 'grandmother']
@@ -174,8 +174,8 @@ def main():
 
     gender_bias_test(x, y, m, f, model.wv)
 
-    print(format(model.wv.most_similar(positive="boy", topn=10)))
-    print(format(model.wv.similarity('king', 'weakness')))
+    print(format(model.wv.most_similar(positive="girl", topn=10)))
+    print(format(model.wv.similarity('queen', 'weak')))
 
 
     # mbk = MiniBatchKMeans(init='k-means++', n_clusters=100, batch_size=100, max_no_improvement=10, verbose=0)

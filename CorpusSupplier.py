@@ -1,18 +1,29 @@
 import os
-
+from abc import ABC, abstractmethod
 import gensim
 
 
-class CorpusSupplier:
-    def __init__(self):
-        raise NotImplementedError('CorpusSupplier is an abstract class!')
+class CorpusSupplier(ABC):
+    """
+    :param test test
 
+    """
+
+    CONFIGURATION_FILENAME = "_config.json"
+
+    def __init__(self, corpus_path):
+        self._corpus_path = corpus_path
+
+    @abstractmethod
     def load_data(self):
-        raise NotImplementedError('subclasses must override load_data()!')
-        # output_text = []
-        # for file_name in os.listdir(self._corpus_path):
-        #     with open(os.path.join(self._corpus_path, file_name), 'r') as file:
-        #         for line in file:
-        #             output_text.append(gensim.utils.simple_preprocess(line))
-        #     print("Done appending " + file_name)
-        # return output_text
+        """
+        Method which loads data
+        :returns list of str
+        """
+        pass
+
+    def get_files(self):
+        for file_name in os.listdir(self._corpus_path):
+            if file_name == CorpusSupplier.CONFIGURATION_FILENAME:
+                continue
+            yield os.path.join(self._corpus_path, file_name)
