@@ -6,41 +6,42 @@ from CorpusSupplierFactory import CorpusSupplierFactory
 
 
 class ModelHandler:
-    def __init__(self, model_name, corpus_path, model_type, force=False):
-        self._model = self.load(model_name, corpus_path, model_type)
+
+
+
+    def __init__(self, model_config, force=False):
+        self._config = model_config
+        self._model_id = self._config_to_id()
+        self._model = self._load(force)
 
     @staticmethod
-    def create_and_load(model_name, corpus_path, model_type, force=False):
-        path_to_database = "database.txt"
-        if os.path.isfile(path_to_database):
-            with open("database.txt", "r") as database:
-                str2 = corpus_path + "\t" + model_type + "\n"
-                if str2 in database.readlines():
-                    print("True")
-        model_handler = ModelHandler(model_name, corpus_path, model_type, force)
+    def create_and_load(model_config, force_training=False):
+        model_handler = ModelHandler(model_config, force_training)
         return model_handler
 
-    def load(self, model_name, corpus_path, model_type, force=False):
+    def _load(self, force_training=False):
+        model_type = self._config["model_type"]
         if model_type == "w2v":
-            if not os.path.exists(model_name) or force:
-                return self.save(model_name, corpus_path)
+            if not os.path.exists(self._model_id) or force_training:
+                return self._save(self._model_id)
             else:
                 print("Load model")
-                return Word2Vec.load(model_name)
+                return Word2Vec.load(self._model_id)
         elif model_type == "ft":
-            return gensim.models.fasttext.load_facebook_vectors(model_name)
+            return gensim.models.fasttext.load_facebook_vectors(self._model_id)
         else:
             raise ValueError("Unsupported Word Embedding type '{}'".format(model_type))
 
-    def save(self, model_name, corpus_path):
-        documents = CorpusSupplierFactory.create_corpus_supplier(corpus_path).load_data()
-        model = gensim.models.Word2Vec(documents, size=150, window=10, min_count=2, workers=4)
-        model.train(documents, total_examples=len(documents), epochs=10)
-        model.save("data/cache/"+model_name)
-        file = open("database.txt", "a")
-        file.write(corpus_path + "\t" + "w2v" + model_name + "\n")
-        file.close()
+    def _save(self, model_id):
+        documents = CorpusSupplierFactory.create_corpus_supplier(self._config["corpus_path"]).load_data()
+        model = gensim.models.Word2Vec(documents, size=self._config["size"], window=self._config["window"], min_count=2, workers=4)
+        model.train(documents, total_examples=len(documents), epochs=self._config["epochs"])
+        model.save(model_id)
         return model
+
+    def _config_to_id(self):
+        return "{model_path}{corpus_name}_size{size}_wnd{window}_sg{sg}_e{epochs}".format(**self._config)
+
 
     @property
     def model(self):

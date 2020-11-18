@@ -10,9 +10,9 @@ from sklearn.cluster import MiniBatchKMeans
 from ModelHandler import ModelHandler
 
 
-def load(model_name, corpus_name, modeltype, force=False):
+def load(model_name, corpus_name, modeltype, force_training=False):
     if modeltype == "w2v":
-        if not os.path.exists(model_name) or force:
+        if not os.path.exists(model_name) or force_training:
             return save(model_name, corpus_name)
         else:
             return Word2Vec.load(model_name)
@@ -163,7 +163,7 @@ def print_line(f, cluster, majority_gender, cluster_desc, m_words, f_words, p_va
 def main():
     #model = load("model", "cbt_train.txt", "w2v")
     # model = load("data/gap-full.bin", "none", "ft")
-    model = ModelHandler.create_and_load("model2", "data/CLLIP_Corpus", "w2v").model
+    model = ModelHandler.create_and_load().model
 
     m = ['male', 'man', 'boy', 'brother', 'he', 'him', 'his', 'son', 'father', 'uncle', 'grandfather']
     f = ['female', 'woman', 'girl', 'sister', 'she', 'her', 'hers', 'daughter', 'mother', 'aunt', 'grandmother']

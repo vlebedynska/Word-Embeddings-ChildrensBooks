@@ -1,0 +1,80 @@
+{
+  "model": {
+    "corpus_path": "data/ChiLit_Corpus",
+    "model_path": "data/cache/",
+    "corpus_name": "ChiLit",
+    "model_type": "w2v",
+    "size": 150,
+    "window": 10,
+    "sg": 0,
+    "epochs": 10
+  },
+  "weat_lists": {
+    "gender": {
+      "attr": {
+        "male": [
+          "male",
+          "man",
+          "boy",
+          "brother",
+          "he",
+          "him",
+          "his",
+          "son",
+          "father",
+          "uncle",
+          "grandfather"
+        ],
+        "female": [
+          "female",
+          "woman",
+          "girl",
+          "sister",
+          "she",
+          "her",
+          "hers",
+          "daughter",
+          "mother",
+          "aunt",
+          "grandmother"
+        ]
+      },
+      "target": {
+        "x": [
+          "power",
+          "strong",
+          "confident",
+          "dominant",
+          "potent",
+          "command",
+          "assert",
+          "loud",
+          "bold",
+          "succeed",
+          "triumph",
+          "leader",
+          "shout",
+          "dynamic",
+          "winner"
+        ],
+        "y": [
+          "weak",
+          "surrender",
+          "timid",
+          "vulnerable",
+          "weakness",
+          "wispy",
+          "withdraw",
+          "yield",
+          "failure",
+          "shy",
+          "follow",
+          "lose",
+          "fragile",
+          "afraid",
+          "loser"
+        ]
+      }
+    }
+  }
+}
