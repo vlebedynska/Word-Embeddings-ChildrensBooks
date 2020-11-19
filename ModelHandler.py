@@ -7,8 +7,6 @@ from CorpusSupplierFactory import CorpusSupplierFactory
 
 class ModelHandler:
 
-
-
     def __init__(self, model_config, force=False):
         self._config = model_config
         self._model_id = self._config_to_id()
@@ -46,3 +44,7 @@ class ModelHandler:
     @property
     def model(self):
         return self._model
+
+    @property
+    def model_id(self):
+        return self._model_id

@@ -1,7 +1,10 @@
 import math
 import random
+import time
 
 from pandas import np
+
+from TestResult import TestResult
 
 
 class BiasAssessor:
@@ -13,33 +16,47 @@ class BiasAssessor:
     def create(model, config):
         return BiasAssessor(model, config)
 
+    # TODO add subcategories for bias_categories if needed -> for this define "default" bias_subcategory as constant
+    #  value and change config.json
+
     def bias_test(self, bias_category):
+        start_time = time.time()
         wv = self._model.wv
-        category_data = self._config[bias_category]
+        category_data = self._config["lists"][bias_category]
+        number_of_permutations = self._config["number_of_permutations"]
         f = category_data["attr"]["female"]
         m = category_data["attr"]["male"]
         x = category_data["target"]["x"]
         y = category_data["target"]["y"]
-        f_attrs = BiasAssessor.filter_words(wv, f)
-        m_attrs = BiasAssessor.filter_words(wv, m)
-        x_targets = BiasAssessor.filter_words(wv, x)
-        y_targets = BiasAssessor.filter_words(wv, y)
+        f_attrs, f_filtered = BiasAssessor.filter_words(wv, f)
+        m_attrs, m_filtered = BiasAssessor.filter_words(wv, m)
+        x_targets, x_filtered = BiasAssessor.filter_words(wv, x)
+        y_targets, y_filtered = BiasAssessor.filter_words(wv, y)
         print("f_attrs: " + str(f_attrs))
         print("m_attrs: " + str(m_attrs))
         print("x_targets: " + str(x_targets))
         print("y_targets: " + str(y_targets))
-        p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, m_attrs, f_attrs, 1000)
+        p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, m_attrs, f_attrs, number_of_permutations)
         cohens_d = BiasAssessor.get_cohens_d(wv, x_targets, y_targets, m_attrs, f_attrs)
         print("{}\t{}\t{}\n".format("strength vs. weakness", p_value, cohens_d))
+        used = [f_attrs, m_attrs, x_targets, y_targets]
+        absent = [f_filtered, m_filtered, x_filtered, y_filtered]
+        end_time = time.time()
+        total_time = end_time - start_time
+        test_result = TestResult.create(bias_category, p_value, cohens_d, number_of_permutations, total_time, absent, used)
+        return test_result
 
 
     @staticmethod
     def filter_words(wv, words):
         final_words = []
+        filtered_words = []
         for word in words:
             if word in wv.vocab:
                 final_words.append(word)
-        return final_words
+            else:
+                filtered_words.append(word)
+        return final_words, filtered_words
 
     @staticmethod
     def weat_rand_test(wv, m_words, f_words, m_attrs, f_attrs, iterations):
