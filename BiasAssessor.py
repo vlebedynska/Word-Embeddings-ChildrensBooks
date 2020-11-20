@@ -5,6 +5,7 @@ import time
 from pandas import np
 
 from TestResult import TestResult
+from Utils import Utils
 
 
 class BiasAssessor:
@@ -28,35 +29,18 @@ class BiasAssessor:
         m = category_data["attr"]["male"]
         x = category_data["target"]["x"]
         y = category_data["target"]["y"]
-        f_attrs, f_filtered = BiasAssessor.filter_words(wv, f)
-        m_attrs, m_filtered = BiasAssessor.filter_words(wv, m)
-        x_targets, x_filtered = BiasAssessor.filter_words(wv, x)
-        y_targets, y_filtered = BiasAssessor.filter_words(wv, y)
-        print("f_attrs: " + str(f_attrs))
-        print("m_attrs: " + str(m_attrs))
-        print("x_targets: " + str(x_targets))
-        print("y_targets: " + str(y_targets))
+        f_attrs, f_filtered_out = Utils.filter_list(wv.vocab, f)
+        m_attrs, m_filtered_out = Utils.filter_list(wv.vocab, m)
+        x_targets, x_filtered_out = Utils.filter_list(wv.vocab, x)
+        y_targets, y_filtered_out = Utils.filter_list(wv.vocab, y)
         p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, m_attrs, f_attrs, number_of_permutations)
         cohens_d = BiasAssessor.get_cohens_d(wv, x_targets, y_targets, m_attrs, f_attrs)
-        print("{}\t{}\t{}\n".format("strength vs. weakness", p_value, cohens_d))
         used = [f_attrs, m_attrs, x_targets, y_targets]
-        absent = [f_filtered, m_filtered, x_filtered, y_filtered]
-        end_time = time.time()
-        total_time = end_time - start_time
+        absent = [f_filtered_out, m_filtered_out, x_filtered_out, y_filtered_out]
+        total_time = time.time() - start_time
         test_result = TestResult.create(bias_category, p_value, cohens_d, number_of_permutations, total_time, absent, used)
         return test_result
 
-
-    @staticmethod
-    def filter_words(wv, words):
-        final_words = []
-        filtered_words = []
-        for word in words:
-            if word in wv.vocab:
-                final_words.append(word)
-            else:
-                filtered_words.append(word)
-        return final_words, filtered_words
 
     @staticmethod
     def weat_rand_test(wv, m_words, f_words, m_attrs, f_attrs, iterations):
