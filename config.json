@@ -9,6 +9,13 @@
     "sg": 0,
     "epochs": 10
   },
+  "clustering": {
+    "init" : "k-means++",
+    "n_clusters" : 100,
+    "batch_size" : 100,
+    "max_no_improvement" : 10,
+    "verbose" : 0
+  },
   "weat_lists": {
     "lists": {
       "gender.b1": {

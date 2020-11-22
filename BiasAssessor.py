@@ -17,22 +17,32 @@ class BiasAssessor:
     def create(model, config):
         return BiasAssessor(model, config)
 
+    def bias_test_for_clusters(self, attr_a, attr_b, clusters_of_m_w_words, bias_category):
+        test_results = []
+        for f_words, m_words in clusters_of_m_w_words:
+            test_results.append(self.bias_test(
+                attr_a,
+                attr_b,
+                f_words,
+                m_words,
+                bias_category
+            ))
+        return test_results
+
+
+
     # TODO add subcategories for bias_categories if needed -> for this define "default" bias_subcategory as constant
     #  value and change config.json
 
-    def bias_test(self, bias_category):
+
+    def bias_test(self, attr_f, attr_m, target_x, target_y, bias_category):
         start_time = time.time()
         wv = self._model.wv
-        category_data = self._config["lists"][bias_category]
         number_of_permutations = self._config["number_of_permutations"]
-        f = category_data["attr"]["female"]
-        m = category_data["attr"]["male"]
-        x = category_data["target"]["x"]
-        y = category_data["target"]["y"]
-        f_attrs, f_filtered_out = Utils.filter_list(wv.vocab, f)
-        m_attrs, m_filtered_out = Utils.filter_list(wv.vocab, m)
-        x_targets, x_filtered_out = Utils.filter_list(wv.vocab, x)
-        y_targets, y_filtered_out = Utils.filter_list(wv.vocab, y)
+        f_attrs, f_filtered_out = Utils.filter_list(wv.vocab, attr_f)
+        m_attrs, m_filtered_out = Utils.filter_list(wv.vocab, attr_m)
+        x_targets, x_filtered_out = Utils.filter_list(wv.vocab, target_x)
+        y_targets, y_filtered_out = Utils.filter_list(wv.vocab, target_y)
         p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, m_attrs, f_attrs, number_of_permutations)
         cohens_d = BiasAssessor.get_cohens_d(wv, x_targets, y_targets, m_attrs, f_attrs)
         used = [f_attrs, m_attrs, x_targets, y_targets]
