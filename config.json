@@ -1,8 +1,8 @@
 {
   "model": {
-    "corpus_path": "data/ChiLit_Corpus",
+    "corpus_path": "data/ChiLit_Corpus_Small",
     "model_path": "data/cache/",
-    "corpus_name": "ChiLit",
+    "corpus_name": "ChiLit_Small",
     "model_type": "w2v",
     "size": 150,
     "window": 10,
@@ -14,7 +14,8 @@
     "n_clusters" : 100,
     "batch_size" : 100,
     "max_no_improvement" : 10,
-    "verbose" : 0
+    "verbose" : 0,
+    "cluster_words_count": 10
   },
   "weat_lists": {
     "lists": {
@@ -85,6 +86,6 @@
       }
     }
     },
-    "number_of_permutations": 1000
+    "number_of_permutations": 1
   }
 }

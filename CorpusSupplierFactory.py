@@ -4,13 +4,15 @@ import os
 from CorpusSupplier import CorpusSupplier
 from CorpusSupplierCLLIC import CorpusSupplierCLLIC
 from CorpusSupplierChiLit import CorpusSupplierChiLit
+from CorpusSupplierChiLitSmall import CorpusSupplierChiLitSmall
 
 
 class CorpusSupplierFactory:
 
     corpus_types = {
         "CorpusSupplierChiLit": CorpusSupplierChiLit,
-        "CorpusSupplierCLLIC": CorpusSupplierCLLIC
+        "CorpusSupplierCLLIC": CorpusSupplierCLLIC,
+        "CorpusSupplierChiLitSmall": CorpusSupplierChiLitSmall
     }
 
 

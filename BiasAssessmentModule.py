@@ -27,17 +27,17 @@ class BiasAssessmentModule():
         BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
         print(format(model_handler.model.wv.most_similar(positive="girl", topn=10)))
         print(format(model_handler.model.wv.similarity('queen', 'weak')))
+
+
         clusterer = EmbeddigsClusterer.create(model_handler.model, config["clustering"])
         score_for_word_in_cluster = clusterer.calculate_score(config["weat_lists"]["lists"]["gender.b1"])
-        clusters_of_m_f_words = clusterer.get_m_f_word(score_for_word_in_cluster)
+        target_words_from_clusters = clusterer.get_target_words(score_for_word_in_cluster)
         cluster_test_results = bias_assessor.bias_test_for_clusters(
             config["weat_lists"]["lists"]["gender.b1"]["attr"]["female"],
             config["weat_lists"]["lists"]["gender.b1"]["attr"]["male"],
-            clusters_of_m_f_words,
+            target_words_from_clusters,
             "gender.b1")
-
-        for cluster_test_result in cluster_test_results:
-            BiasAssessmentModule.test_result_dump(model_handler.model_id, cluster_test_result, True)
+        BiasAssessmentModule.test_result_dump(model_handler.model_id, cluster_test_results, True)
 
 
     @staticmethod
@@ -46,10 +46,8 @@ class BiasAssessmentModule():
         with open(model_name + "_results.txt", mode) as file:
             for test_result in test_results:
                 BiasAssessmentModule.prettify_test_result(test_result)
-                file.write("{}\t{}\t{:.4f}\t{}\t{:.4f}\t{}\t{}\n"
-                           .format(test_result.bias_category, test_result.p_value, test_result.cohens_d,
-                                   test_result.number_of_permutations, test_result.total_time, test_result.absent_words,
-                                   test_result.used_words))
+                file.write("{_bias_category}\t{_p_value}\t{_cohens_d:.4f}\t{_number_of_permutations}\t{_total_time:.4f}\t{_absent_words}\t{_used_words}\n"
+                           .format(**vars(test_result)))
 
     @staticmethod
     def prettify_test_result(test_result):
