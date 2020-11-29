@@ -31,7 +31,15 @@ class BiasAssessor:
             ))
         return test_results
 
-
+    def start_bias_test(self, bias_category):
+        test_results = [self.bias_test(
+            self._config["lists"][bias_category]["attr"]["a"],
+            self._config["lists"][bias_category]["attr"]["b"],
+            self._config["lists"][bias_category]["target"]["x"],
+            self._config["lists"][bias_category]["target"]["y"],
+            bias_category
+        )]
+        return test_results
 
     # TODO add subcategories for bias_categories if needed -> for this define "default" bias_subcategory as constant
     #  value and change config.json

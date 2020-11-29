@@ -1,12 +1,12 @@
 {
   "model": {
-    "corpus_path": "data/ChiLit_Corpus_Small",
+    "corpus_path": "data/ChiLit_Corpus",
     "model_path": "data/cache/",
-    "corpus_name": "ChiLit_Small",
+    "corpus_name": "ChiLit",
     "model_type": "w2v",
     "size": 150,
-    "window": 10,
-    "sg": 0,
+    "window": 30,
+    "sg": 1,
     "epochs": 10
   },
   "clustering": {
@@ -21,7 +21,7 @@
     "lists": {
       "gender.b1": {
       "attr": {
-        "male": [
+        "b": [
           "male",
           "man",
           "boy",
@@ -34,7 +34,7 @@
           "uncle",
           "grandfather"
         ],
-        "female": [
+        "a": [
           "female",
           "woman",
           "girl",
@@ -84,8 +84,110 @@
           "loser"
         ]
       }
-    }
     },
-    "number_of_permutations": 1
+      "animals": {
+        "attr": {
+          "a" : [
+            "dog",
+            "pig",
+            "chicken",
+            "duck",
+            "rabbit"
+          ],
+          "b" : [
+            "cat",
+            "mouse",
+            "wolf",
+            "fox",
+            "bear"
+          ]
+        },
+        "target": {
+          "x" : [
+            "nice",
+            "smart",
+            "brave",
+            "happy",
+            "lovable",
+            "caring",
+            "peaceful",
+            "cute",
+            "polite"
+          ],
+          "y" : [
+            "mean",
+            "lazy",
+            "sad",
+            "careless",
+            "grumpy",
+            "boring",
+            "unfriendly",
+            "rude",
+            "selfish"
+          ]
+        }
+      },
+      "dog_cat": {
+        "attr": {
+          "a" : [
+            "dog",
+            "puppy",
+            "bully",
+            "pup",
+            "doggy",
+            "hound",
+            "bitch",
+            "cur",
+            "mongrel"
+          ],
+          "b" : [
+            "cat",
+            "kitten",
+            "bobcat",
+            "cheetah",
+            "cougar",
+            "jaguar",
+            "kitty",
+            "leopard",
+            "lion"
+          ]
+        },
+        "target": {
+          "x" : [
+            "nice",
+            "smart",
+            "brave",
+            "happy",
+            "lovable",
+            "caring",
+            "peaceful",
+            "cute",
+            "polite",
+            "beautiful",
+            "cool",
+            "sly",
+            "charming",
+            "clever"
+          ],
+          "y" : [
+            "mean",
+            "lazy",
+            "sad",
+            "careless",
+            "grumpy",
+            "boring",
+            "unfriendly",
+            "rude",
+            "selfish",
+            "evil",
+            "unlucky",
+            "gullible",
+            "depressed",
+            "hyperactive"
+          ]
+        }
+      }
+    },
+    "number_of_permutations": 10000
   }
 }
