@@ -17,8 +17,36 @@ class BiasAssessmentModule():
         BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results)
 
         bias_assessor = BiasAssessor.create(model_handler.model, config["weat_lists"])
-        test_results = bias_assessor.start_bias_test("dog_cat")
+        # test_results = bias_assessor.start_bias_test("gender.b1")
+        # BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+        #
+        # test_results = bias_assessor.start_bias_test("animals")
+        # BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+
+        # test_results = bias_assessor.start_bias_test("dog_cat")
+        # BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+
+        try:
+            test_results = bias_assessor.start_bias_test("race")
+            BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+        except:
+            print("Error occured.")
+
+        test_results = bias_assessor.start_bias_test("gender_math")
         BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+
+        test_results = bias_assessor.start_bias_test("religion_christianity_islam")
+        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+
+        test_results = bias_assessor.start_bias_test("religion_christianity_judaism")
+        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+
+        test_results = bias_assessor.start_bias_test("religion_judaism_islam")
+        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+
+        test_results = bias_assessor.start_bias_test("age")
+        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+
         print(format(model_handler.model.wv.most_similar(positive="cat", topn=10)))
         print(format(model_handler.model.wv.most_similar(positive="dog", topn=10)))
         print(format(model_handler.model.wv.similarity('queen', 'king')))

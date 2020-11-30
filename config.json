@@ -1,8 +1,8 @@
 {
   "model": {
-    "corpus_path": "data/ChiLit_Corpus",
+    "corpus_path": "data/CLLIP_Corpus",
     "model_path": "data/cache/",
-    "corpus_name": "ChiLit",
+    "corpus_name": "CLLIP",
     "model_type": "w2v",
     "size": 150,
     "window": 30,
@@ -10,91 +10,91 @@
     "epochs": 10
   },
   "clustering": {
-    "init" : "k-means++",
-    "n_clusters" : 100,
-    "batch_size" : 100,
-    "max_no_improvement" : 10,
-    "verbose" : 0,
+    "init": "k-means++",
+    "n_clusters": 100,
+    "batch_size": 100,
+    "max_no_improvement": 10,
+    "verbose": 0,
     "cluster_words_count": 10
   },
   "weat_lists": {
     "lists": {
       "gender.b1": {
-      "attr": {
-        "b": [
-          "male",
-          "man",
-          "boy",
-          "brother",
-          "he",
-          "him",
-          "his",
-          "son",
-          "father",
-          "uncle",
-          "grandfather"
-        ],
-        "a": [
-          "female",
-          "woman",
-          "girl",
-          "sister",
-          "she",
-          "her",
-          "hers",
-          "daughter",
-          "mother",
-          "aunt",
-          "grandmother"
-        ]
+        "attr": {
+          "b": [
+            "male",
+            "man",
+            "boy",
+            "brother",
+            "he",
+            "him",
+            "his",
+            "son",
+            "father",
+            "uncle",
+            "grandfather"
+          ],
+          "a": [
+            "female",
+            "woman",
+            "girl",
+            "sister",
+            "she",
+            "her",
+            "hers",
+            "daughter",
+            "mother",
+            "aunt",
+            "grandmother"
+          ]
+        },
+        "target": {
+          "x": [
+            "power",
+            "strong",
+            "confident",
+            "dominant",
+            "potent",
+            "command",
+            "assert",
+            "loud",
+            "bold",
+            "succeed",
+            "triumph",
+            "leader",
+            "shout",
+            "dynamic",
+            "winner"
+          ],
+          "y": [
+            "weak",
+            "surrender",
+            "timid",
+            "vulnerable",
+            "weakness",
+            "wispy",
+            "withdraw",
+            "yield",
+            "failure",
+            "shy",
+            "follow",
+            "lose",
+            "fragile",
+            "afraid",
+            "loser"
+          ]
+        }
       },
-      "target": {
-        "x": [
-          "power",
-          "strong",
-          "confident",
-          "dominant",
-          "potent",
-          "command",
-          "assert",
-          "loud",
-          "bold",
-          "succeed",
-          "triumph",
-          "leader",
-          "shout",
-          "dynamic",
-          "winner"
-        ],
-        "y": [
-          "weak",
-          "surrender",
-          "timid",
-          "vulnerable",
-          "weakness",
-          "wispy",
-          "withdraw",
-          "yield",
-          "failure",
-          "shy",
-          "follow",
-          "lose",
-          "fragile",
-          "afraid",
-          "loser"
-        ]
-      }
-    },
       "animals": {
         "attr": {
-          "a" : [
+          "a": [
             "dog",
             "pig",
             "chicken",
             "duck",
             "rabbit"
           ],
-          "b" : [
+          "b": [
             "cat",
             "mouse",
             "wolf",
@@ -103,7 +103,7 @@
           ]
         },
         "target": {
-          "x" : [
+          "x": [
             "nice",
             "smart",
             "brave",
@@ -114,7 +114,7 @@
             "cute",
             "polite"
           ],
-          "y" : [
+          "y": [
             "mean",
             "lazy",
             "sad",
@@ -129,7 +129,7 @@
       },
       "dog_cat": {
         "attr": {
-          "a" : [
+          "a": [
             "dog",
             "puppy",
             "bully",
@@ -140,7 +140,7 @@
             "cur",
             "mongrel"
           ],
-          "b" : [
+          "b": [
             "cat",
             "kitten",
             "bobcat",
@@ -153,7 +153,7 @@
           ]
         },
         "target": {
-          "x" : [
+          "x": [
             "nice",
             "smart",
             "brave",
@@ -169,7 +169,7 @@
             "charming",
             "clever"
           ],
-          "y" : [
+          "y": [
             "mean",
             "lazy",
             "sad",
@@ -184,6 +184,248 @@
             "gullible",
             "depressed",
             "hyperactive"
+          ]
+        }
+      },
+      "race": {
+        "attr": {
+          "a": [
+            "latonya",
+            "shavonn",
+            "tashika",
+            "ebony"
+          ],
+          "b": [
+            "meredith",
+            "heather",
+            "katie",
+            "betsy"
+          ]
+        },
+        "target": {
+          "x": [
+            "good",
+            "nice",
+            "fun",
+            "happy"
+          ],
+          "y": [
+            "bad",
+            "mean",
+            "yucky",
+            "mad"
+          ]
+        }
+      },
+      "gender_math": {
+        "attr": {
+          "a": [
+            "alice",
+            "jane",
+            "mary",
+            "wendy"
+          ],
+          "b": [
+            "ben",
+            "peter",
+            "john",
+            "tom"
+          ]
+        },
+        "target": {
+          "x": [
+            "read",
+            "books",
+            "story",
+            "letters"
+          ],
+          "y": [
+            "addition",
+            "numbers",
+            "graph",
+            "math"
+          ]
+        }
+      },
+      "religion_with_names": {
+        "attr": {
+          "a": [
+            "ernesto",
+            "matthias",
+            "maarten",
+            "philippe",
+            "guillame",
+            "benoit",
+            "takuya",
+            "kazuki",
+            "chaiyo",
+            "marcelo"
+          ],
+          "b": [
+            "hakim",
+            "sharif",
+            "yousef",
+            "wahib",
+            "akbar",
+            "muhsin",
+            "salim",
+            "karim",
+            "habib",
+            "ashraf"
+          ]
+        },
+        "target": {
+          "x": [
+            "glad",
+            "friend",
+            "glorious",
+            "excellent",
+            "fantastic",
+            "pleasing",
+            "excitement",
+            "terrific"
+          ],
+          "y": [
+            "Detest",
+            "sadness",
+            "horrific",
+            "yucky",
+            "annoy",
+            "nasty",
+            "hurtful",
+            "negative"
+          ]
+        }
+      },
+      "religion_christianity_islam": {
+        "attr": {
+          "a": [
+            "jesus",
+            "christian",
+            "gospel",
+            "church"
+          ],
+          "b": [
+            "muhammad",
+            "muslim",
+            "koran",
+            "mosque"
+          ]
+        },
+        "target": {
+          "x": [
+            "wonderful",
+            "best",
+            "superb",
+            "excellent"
+          ],
+          "y": [
+            "terrible",
+            "awful",
+            "worst",
+            "horrible"
+          ]
+        }
+      },
+      "religion_christianity_judaism": {
+        "attr": {
+          "a": [
+            "jesus",
+            "christian",
+            "gospel",
+            "church"
+          ],
+          "b": [
+            "abraham",
+            "jew",
+            "torah",
+            "synagogue"
+          ]
+        },
+        "target": {
+          "x": [
+            "wonderful",
+            "best",
+            "superb",
+            "excellent"
+          ],
+          "y": [
+            "terrible",
+            "awful",
+            "worst",
+            "horrible"
+          ]
+        }
+      },
+      "religion_judaism_islam": {
+        "attr": {
+          "a": [
+            "abraham",
+            "jew",
+            "torah",
+            "synagogue"
+          ],
+          "b": [
+            "muhammad",
+            "muslim",
+            "koran",
+            "mosque"
+          ]
+        },
+        "target": {
+          "x": [
+            "wonderful",
+            "best",
+            "superb",
+            "excellent"
+          ],
+          "y": [
+            "terrible",
+            "awful",
+            "worst",
+            "horrible"
+          ]
+        }
+      },
+      "age": {
+        "attr": {
+          "a": [
+            "grandmother",
+            "granny",
+            "dowager",
+            "grandfather",
+            "grandpa",
+            "elder"
+          ],
+          "b": [
+            "child",
+            "boy",
+            "girl",
+            "children",
+            "youth",
+            "lad"
+          ]
+        },
+        "target": {
+          "x": [
+            "excitement",
+            "delight",
+            "joyful",
+            "beautiful",
+            "cherish",
+            "fantastic",
+            "cheerful",
+            "magnificent"
+          ],
+          "y": [
+            "detest",
+            "poison",
+            "failure",
+            "pain",
+            "ugly",
+            "grief",
+            "nasty",
+            "despise"
           ]
         }
       }

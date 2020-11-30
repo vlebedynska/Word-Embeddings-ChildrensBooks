@@ -1,6 +1,7 @@
 import math
 import random
 import time
+from preconditions import preconditions
 
 from pandas import np
 
@@ -45,6 +46,12 @@ class BiasAssessor:
     #  value and change config.json
 
 
+    @preconditions(
+        lambda attr_a: len(attr_a) > 0,
+        lambda attr_b: len(attr_b) > 0,
+        lambda target_x: len(target_x) > 0,
+        lambda target_y: len(target_y) > 0
+    )
     def bias_test(self, attr_a, attr_b, target_x, target_y, bias_category):
         start_time = time.time()
         wv = self._model.wv
@@ -53,13 +60,17 @@ class BiasAssessor:
         b_attrs, b_filtered_out = Utils.filter_list(wv.vocab, attr_b)
         x_targets, x_filtered_out = Utils.filter_list(wv.vocab, target_x)
         y_targets, y_filtered_out = Utils.filter_list(wv.vocab, target_y)
-        p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, b_attrs, a_attrs, number_of_permutations)
-        cohens_d = BiasAssessor.get_cohens_d(wv, x_targets, y_targets, b_attrs, a_attrs)
-        used = [a_attrs, b_attrs, x_targets, y_targets]
-        absent = [a_filtered_out, b_filtered_out, x_filtered_out, y_filtered_out]
-        total_time = time.time() - start_time
-        test_result = TestResult.create(bias_category, p_value, cohens_d, number_of_permutations, total_time, absent, used)
-        return test_result
+        if Utils.one_is_empty(a_attrs, b_attrs, x_targets, y_targets):
+            raise Exception("Is empty")
+        else:
+            p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, b_attrs, a_attrs, number_of_permutations)
+            cohens_d = BiasAssessor.get_cohens_d(wv, x_targets, y_targets, b_attrs, a_attrs)
+            used = [a_attrs, b_attrs, x_targets, y_targets]
+            absent = [a_filtered_out, b_filtered_out, x_filtered_out, y_filtered_out]
+            total_time = time.time() - start_time
+            test_result = TestResult.create(bias_category, p_value, cohens_d, number_of_permutations, total_time, absent, used)
+            return test_result
+
 
 
     @staticmethod
