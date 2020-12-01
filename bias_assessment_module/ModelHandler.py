@@ -1,6 +1,6 @@
 import os
 import gensim
-from gensim.models import Word2Vec
+from gensim.models import Word2Vec, fasttext, KeyedVectors
 
 from bias_assessment_module.CorpusSupplierFactory import CorpusSupplierFactory
 
@@ -24,6 +24,7 @@ class ModelHandler:
                 return self._save(self._model_id)
             else:
                 print("Load model")
+                # return KeyedVectors.load_word2vec_format(self._model_id, binary=True)
                 return Word2Vec.load(self._model_id)
         elif model_type == "ft":
             return gensim.models.fasttext.load_facebook_vectors(self._model_id)

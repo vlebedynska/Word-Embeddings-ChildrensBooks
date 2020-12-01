@@ -5,51 +5,35 @@ import json
 
 
 class BiasAssessmentModule():
-
-    def run(self):
-
-        with open("config.json", "r") as config_file:
+    def __init__(self, config):
+        self._config = config
+        with open(config, "r") as config_file:
             config = json.load(config_file)
-        test_results = []
-        model_handler = ModelHandler.create_and_load(config["model"])
-
+        self._test_results = []
+        self._model_handler = ModelHandler.create_and_load(config["model"])
         # delete old entries in the results-file
-        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results)
+        BiasAssessmentModule.test_result_dump(self._model_handler.model_id, self._test_results)
+        self._bias_assessor = BiasAssessor.create(self._model_handler.model, config["weat_lists"])
 
-        bias_assessor = BiasAssessor.create(model_handler.model, config["weat_lists"])
-        # test_results = bias_assessor.start_bias_test("gender.b1")
-        # BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
-        #
-        # test_results = bias_assessor.start_bias_test("animals")
-        # BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+    @property
+    def test_results(self):
+        return self._test_results
 
-        # test_results = bias_assessor.start_bias_test("dog_cat")
-        # BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+    @property
+    def model_handler(self):
+        return self._model_handler
 
-        try:
-            test_results = bias_assessor.start_bias_test("race")
-            BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
-        except:
-            print("Error occured.")
+    @property
+    def bias_assessor(self):
+        return self._bias_assessor
 
-        test_results = bias_assessor.start_bias_test("gender_math")
-        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
 
-        test_results = bias_assessor.start_bias_test("religion_christianity_islam")
-        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
+    def run(self, config):
+        pass
 
-        test_results = bias_assessor.start_bias_test("religion_christianity_judaism")
-        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
-
-        test_results = bias_assessor.start_bias_test("religion_judaism_islam")
-        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
-
-        test_results = bias_assessor.start_bias_test("age")
-        BiasAssessmentModule.test_result_dump(model_handler.model_id, test_results, True)
-
-        print(format(model_handler.model.wv.most_similar(positive="cat", topn=10)))
-        print(format(model_handler.model.wv.most_similar(positive="dog", topn=10)))
-        print(format(model_handler.model.wv.similarity('queen', 'king')))
+        # print(format(model_handler.model.wv.most_similar(positive="cat", topn=10)))
+        # print(format(model_handler.model.wv.most_similar(positive="dog", topn=10)))
+        # print(format(model_handler.model.wv.similarity('queen', 'king')))
 
 
         # clusterer = EmbeddigsClusterer.create(model_handler.model, config["clustering"])
@@ -80,4 +64,4 @@ class BiasAssessmentModule():
 
 if __name__ == '__main__':
     module = BiasAssessmentModule()
-    module.run()
+    module.run("config.json")

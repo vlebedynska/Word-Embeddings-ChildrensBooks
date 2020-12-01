@@ -5,6 +5,7 @@ from preconditions import preconditions
 
 from pandas import np
 
+from bias_assessment_module.BiasAssessorException import BiasAssessorException
 from bias_assessment_module.TestResult import TestResult
 from bias_assessment_module.Utils import Utils
 
@@ -61,7 +62,8 @@ class BiasAssessor:
         x_targets, x_filtered_out = Utils.filter_list(wv.vocab, target_x)
         y_targets, y_filtered_out = Utils.filter_list(wv.vocab, target_y)
         if Utils.one_is_empty(a_attrs, b_attrs, x_targets, y_targets):
-            raise Exception("Is empty")
+            args = {"a_attr": a_attrs, "b_attr": b_attrs, "x_targets": x_targets, "y_targets": y_targets}
+            raise BiasAssessorException([attr_name for attr_name in args if len(args[attr_name]) == 0], bias_category)
         else:
             p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, b_attrs, a_attrs, number_of_permutations)
             cohens_d = BiasAssessor.get_cohens_d(wv, x_targets, y_targets, b_attrs, a_attrs)
@@ -81,8 +83,10 @@ class BiasAssessor:
 
         original = BiasAssessor.test_statistic(wv, b_targets, a_targets, b_attrs, a_attrs)
         r = 0
-        for _ in range(runs):
+        for i in range(runs):
             permutation = tuple(random.sample(u_words, len(u_words)))
+            if i % 1000 == 0:
+                print("permutation number " + str(i) + "/" + str(runs))
             if permutation not in seen:
                 m_hat = permutation[0:len(b_targets)]
                 f_hat = permutation[len(a_targets):]

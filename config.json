@@ -1,6 +1,6 @@
 {
   "model": {
-    "corpus_path": "data/CLLIP_Corpus",
+    "corpus_path": "",
     "model_path": "data/cache/",
     "corpus_name": "CLLIP",
     "model_type": "w2v",
@@ -20,6 +20,248 @@
   "weat_lists": {
     "lists": {
       "gender.b1": {
+        "attr": {
+          "b": [
+            "male",
+            "man",
+            "boy",
+            "brother",
+            "he",
+            "him",
+            "his",
+            "son",
+            "father",
+            "uncle",
+            "grandfather"
+          ],
+          "a": [
+            "female",
+            "woman",
+            "girl",
+            "sister",
+            "she",
+            "her",
+            "hers",
+            "daughter",
+            "mother",
+            "aunt",
+            "grandmother"
+          ]
+        },
+        "target": {
+          "x": [
+            "executive",
+            "management",
+            "professional",
+            "corporation",
+            "salary",
+            "office",
+            "business",
+            "career"
+          ],
+          "y": [
+            "home",
+            "parents",
+            "children",
+            "family",
+            "cousins",
+            "marriage",
+            "wedding",
+            "relatives"
+          ]
+        }
+      },
+      "gender.b2": {
+        "attr": {
+          "b": [
+            "male",
+            "man",
+            "boy",
+            "brother",
+            "he",
+            "him",
+            "his",
+            "son",
+            "father",
+            "uncle",
+            "grandfather"
+          ],
+          "a": [
+            "female",
+            "woman",
+            "girl",
+            "sister",
+            "she",
+            "her",
+            "hers",
+            "daughter",
+            "mother",
+            "aunt",
+            "grandmother"
+          ]
+        },
+        "target": {
+          "x": [
+            "math",
+            "algebra",
+            "geometry",
+            "calculus",
+            "equations",
+            "computation",
+            "numbers",
+            "addition"
+          ],
+          "y": [
+            "poetry",
+            "art",
+            "Shakespeare",
+            "dance",
+            "literature",
+            "novel",
+            "symphony",
+            "drama"
+          ]
+        }
+      },
+      "gender.b3": {
+        "attr": {
+          "b": [
+            "male",
+            "man",
+            "boy",
+            "brother",
+            "he",
+            "him",
+            "his",
+            "son",
+            "father",
+            "uncle",
+            "grandfather"
+          ],
+          "a": [
+            "female",
+            "woman",
+            "girl",
+            "sister",
+            "she",
+            "her",
+            "hers",
+            "daughter",
+            "mother",
+            "aunt",
+            "grandmother"
+          ]
+        },
+        "target": {
+          "x": [
+            "science",
+            "technology",
+            "physics",
+            "chemistry",
+            "Einstein",
+            "NASA",
+            "experiment",
+            "astronomy"
+          ],
+          "y": [
+            "poetry",
+            "art",
+            "Shakespeare",
+            "dance",
+            "literature",
+            "novel",
+            "symphony",
+            "drama"
+          ]
+        }
+      },
+      "gender.b4": {
+        "attr": {
+          "b": [
+            "male",
+            "man",
+            "boy",
+            "brother",
+            "he",
+            "him",
+            "his",
+            "son",
+            "father",
+            "uncle",
+            "grandfather"
+          ],
+          "a": [
+            "female",
+            "woman",
+            "girl",
+            "sister",
+            "she",
+            "her",
+            "hers",
+            "daughter",
+            "mother",
+            "aunt",
+            "grandmother"
+          ]
+        },
+        "target": {
+          "x": [
+            "precocious",
+            "resourceful",
+            "inquisitive",
+            "genius",
+            "inventive",
+            "astute",
+            "adaptable",
+            "reflective",
+            "discerning",
+            "intuitive",
+            "inquiring",
+            "judicious",
+            "analytical",
+            "apt",
+            "venerable",
+            "imaginative",
+            "shrewd",
+            "thoughtful",
+            "wise",
+            "smart",
+            "ingenious",
+            "clever",
+            "brilliant",
+            "logical",
+            "intelligent"
+          ],
+          "y": [
+            "alluring",
+            "voluptuous",
+            "blushing",
+            "homely",
+            "plump",
+            "sensual",
+            "gorgeous",
+            "slim",
+            "bald",
+            "athletic",
+            "fashionable",
+            "stout",
+            "ugly",
+            "muscular",
+            "slender",
+            "feeble",
+            "handsome",
+            "healthy",
+            "attractive",
+            "fat",
+            "weak",
+            "thin",
+            "pretty",
+            "beautiful",
+            "strong"
+          ]
+        }
+      },
+      "gender.b5": {
         "attr": {
           "b": [
             "male",
@@ -190,16 +432,16 @@
       "race": {
         "attr": {
           "a": [
-            "latonya",
-            "shavonn",
-            "tashika",
-            "ebony"
+            "Latonya",
+            "Shavonn",
+            "Tashika",
+            "Ebony"
           ],
           "b": [
-            "meredith",
-            "heather",
-            "katie",
-            "betsy"
+            "Meredith",
+            "Heather",
+            "Katie",
+            "Betsy"
           ]
         },
         "target": {
@@ -220,16 +462,16 @@
       "gender_math": {
         "attr": {
           "a": [
-            "alice",
-            "jane",
-            "mary",
-            "wendy"
+            "Alice",
+            "Jane",
+            "Mary",
+            "Wendy"
           ],
           "b": [
-            "ben",
-            "peter",
-            "john",
-            "tom"
+            "Ben",
+            "Peter",
+            "John",
+            "Tom"
           ]
         },
         "target": {
@@ -250,28 +492,28 @@
       "religion_with_names": {
         "attr": {
           "a": [
-            "ernesto",
-            "matthias",
-            "maarten",
-            "philippe",
-            "guillame",
-            "benoit",
-            "takuya",
-            "kazuki",
-            "chaiyo",
-            "marcelo"
+            "Ernesto",
+            "Matthias",
+            "Maarten",
+            "Philippe",
+            "Guillame",
+            "Benoit",
+            "Takuya",
+            "Kazuki",
+            "Chaiyo",
+            "Marcelo"
           ],
           "b": [
-            "hakim",
-            "sharif",
-            "yousef",
-            "wahib",
-            "akbar",
-            "muhsin",
-            "salim",
-            "karim",
-            "habib",
-            "ashraf"
+            "Hakim",
+            "Sharif",
+            "Yousef",
+            "Wahib",
+            "Akbar",
+            "Muhsin",
+            "Salim",
+            "Karim",
+            "Habib",
+            "Ashraf"
           ]
         },
         "target": {
@@ -300,15 +542,15 @@
       "religion_christianity_islam": {
         "attr": {
           "a": [
-            "jesus",
-            "christian",
+            "Jesus",
+            "Christian",
             "gospel",
             "church"
           ],
           "b": [
-            "muhammad",
-            "muslim",
-            "koran",
+            "Muhammad",
+            "Muslim",
+            "Koran",
             "mosque"
           ]
         },
@@ -330,13 +572,13 @@
       "religion_christianity_judaism": {
         "attr": {
           "a": [
-            "jesus",
-            "christian",
+            "Jesus",
+            "Christian",
             "gospel",
             "church"
           ],
           "b": [
-            "abraham",
+            "Abraham",
             "jew",
             "torah",
             "synagogue"
@@ -360,16 +602,16 @@
       "religion_judaism_islam": {
         "attr": {
           "a": [
-            "abraham",
+            "Abraham",
             "jew",
-            "torah",
+            "Torah",
             "synagogue"
           ],
           "b": [
-            "muhammad",
-            "muslim",
-            "koran",
-            "mosque"
+            "Muhammad",
+            "Muslim",
+            "Koran",
+            "Mosque"
           ]
         },
         "target": {
@@ -426,6 +668,120 @@
             "grief",
             "nasty",
             "despise"
+          ]
+        }
+      },
+      "flowers_vs_insects": {
+        "attr": {
+          "b": [
+            "aster",
+            "clover",
+            "hyacinth",
+            "marigold",
+            "poppy",
+            "azalea",
+            "crocus",
+            "iris",
+            "orchid",
+            "rose",
+            "bluebell",
+            "daffodil",
+            "lilac",
+            "pansy",
+            "tulip",
+            "buttercup",
+            "daisy",
+            "lily",
+            "peony",
+            "violet",
+            "carnation",
+            "gladiola",
+            "magnolia",
+            "petunia",
+            "zinnia"
+          ],
+          "a": [
+            "ant",
+            "caterpillar",
+            "flea",
+            "locust",
+            "spider",
+            "bedbug",
+            "centipede",
+            "fly",
+            "maggot",
+            "tarantula",
+            "bee",
+            "cockroach",
+            "gnat",
+            "mosquito",
+            "termite",
+            "beetle",
+            "cricket",
+            "hornet",
+            "moth",
+            "wasp",
+            "blackfly",
+            "dragonfly",
+            "horsefly",
+            "roach",
+            "weevil"
+          ]
+        },
+        "target": {
+          "x": [
+            "caress",
+            "freedom",
+            "health",
+            "love",
+            "peace",
+            "cheer",
+            "friend",
+            "heaven",
+            "loyal",
+            "pleasure",
+            "diamond",
+            "gentle",
+            "honest",
+            "lucky",
+            "rainbow",
+            "diploma",
+            "gift",
+            "honor",
+            "miracle",
+            "sunrise",
+            "family",
+            "happy",
+            "laughter",
+            "paradise",
+            "vacation"
+          ],
+          "y": [
+            "abuse",
+            "crash",
+            "filth",
+            "murder",
+            "sickness",
+            "accident",
+            "death",
+            "grief",
+            "poison",
+            "stink",
+            "assault",
+            "disaster",
+            "hatred",
+            "pollute",
+            "tragedy",
+            "divorce",
+            "jail",
+            "poverty",
+            "ugly",
+            "cancer",
+            "kill",
+            "rotten",
+            "vomit",
+            "agony",
+            "prison"
           ]
         }
       }
