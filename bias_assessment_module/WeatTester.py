@@ -18,11 +18,11 @@ class WeatTester:
 
 if __name__ == '__main__':
     module = BiasAssessmentModule("config.json")
-    bias_categories = [("gender.b1", True),
-                       ("gender.b2", True),
-                       ("gender.b3", True),
-                       ("gender.b4", True),
-                       ("gender.b5", True),
+    bias_categories = [("gender.b1", False),
+                       ("gender.b2", False),
+                       ("gender.b3", False),
+                       ("gender.b4", False),
+                       ("gender.b5", False),
                        ("flowers_vs_insects", False),
                        ("animals", False),
                        ("dog_cat", False),
@@ -32,7 +32,9 @@ if __name__ == '__main__':
                        ("religion_christianity_islam", False),
                        ("religion_christianity_judaism", False),
                        ("religion_judaism_islam", False),
-                       ("age", False)
+                       ("wolf_sheep", False),
+                       ("fox_bird", True),
+                       ("lion_mouse", False)
                        ]
 
     bias_categories_for_weat_test = []

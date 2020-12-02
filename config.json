@@ -2,7 +2,7 @@
   "model": {
     "corpus_path": "",
     "model_path": "data/cache/",
-    "corpus_name": "CLLIP",
+    "corpus_name": "GoogleNews",
     "model_type": "w2v",
     "size": 150,
     "window": 30,
@@ -782,6 +782,143 @@
             "vomit",
             "agony",
             "prison"
+          ]
+        }
+      },
+      "wolf_sheep": {
+        "attr": {
+          "b": [
+            "coyote",
+            "wolf",
+            "werewolf"
+          ],
+          "a": [
+            "sheep",
+            "cattle",
+            "cows",
+            "mutton",
+            "woolly"
+          ]
+        },
+        "target": {
+          "x": [
+            "cruel",
+            "evil",
+            "villainous",
+            "seductive",
+            "hungry",
+            "dangerous",
+            "lusting",
+            "disguise",
+            "sickness",
+            "accident",
+            "death",
+            "grief",
+            "poison"
+          ],
+          "y": [
+            "cute",
+            "guillable",
+            "sweet",
+            "innocent",
+            "love",
+            "peace",
+            "cheer",
+            "honest",
+            "lucky",
+            "happy",
+            "paradise",
+            "caress"
+          ]
+        }
+      },
+      "fox_bird": {
+        "attr": {
+          "b": [
+            "fox"
+          ],
+          "a": [
+            "bird",
+            "sparrow",
+            "crow",
+            "crane",
+            "chicken"
+          ]
+        },
+        "target": {
+          "x": [
+            "cruel",
+            "evil",
+            "villainous",
+            "seductive",
+            "hungry",
+            "dangerous",
+            "lusting",
+            "trick",
+            "wily",
+            "cunning",
+            "intelligent"
+          ],
+          "y": [
+            "stupid",
+            "foolish",
+            "dull",
+            "naive",
+            "cowardly",
+            "frightened",
+            "scared",
+            "dumb",
+            "panicky",
+            "shy",
+            "worried"
+          ]
+        }
+      },
+      "lion_mouse": {
+        "attr": {
+          "b": [
+            "lion",
+            "sphinx",
+            "wildcat",
+            "puma",
+            "cougar",
+            "leo"
+          ],
+          "a": [
+            "mouse",
+            "mice",
+            "murine",
+            "hamster",
+            "rat",
+            "mole"
+          ]
+        },
+        "target": {
+          "x": [
+            "proud",
+            "brave",
+            "noble",
+            "royal",
+            "strong",
+            "king",
+            "god",
+            "hero",
+            "ruler",
+            "hungry",
+            "majestic"
+          ],
+          "y": [
+            "quiet",
+            "silent",
+            "frail",
+            "mute",
+            "reticent",
+            "soundless",
+            "decrepit",
+            "vulnerable",
+            "infirm",
+            "sensible",
+            "nervous"
           ]
         }
       }

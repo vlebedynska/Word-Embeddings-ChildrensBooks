@@ -24,8 +24,8 @@ class ModelHandler:
                 return self._save(self._model_id)
             else:
                 print("Load model")
-                # return KeyedVectors.load_word2vec_format(self._model_id, binary=True)
-                return Word2Vec.load(self._model_id)
+                return KeyedVectors.load_word2vec_format(self._model_id, binary=True)
+                # return Word2Vec.load(self._model_id)
         elif model_type == "ft":
             return gensim.models.fasttext.load_facebook_vectors(self._model_id)
         else:
