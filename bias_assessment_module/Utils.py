@@ -1,3 +1,6 @@
+import random
+
+
 class Utils:
 
     @staticmethod
@@ -25,3 +28,13 @@ class Utils:
             else:
                 return True
         return False
+
+    @staticmethod
+    def balance_sets(first_set, second_set):
+        # number = (a_attrs - b_attrs) if len(a_attrs) >= len(b_attrs) else (b_attrs-a_attrs)
+        if len(first_set) != len(second_set):
+            set_size = min(len(first_set), len(second_set))
+            first_set = random.sample(first_set, k=set_size)
+            second_set = random.sample(second_set, k=set_size)
+        return first_set, second_set
+
