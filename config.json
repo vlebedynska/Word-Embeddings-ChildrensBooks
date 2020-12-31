@@ -1,8 +1,8 @@
 {
   "model": {
-    "corpus_path": "data/CPBC_Corpus",
+    "corpus_path": "data/ChiLit_Corpus",
     "model_path": "data/cache/",
-    "corpus_name": "CPBC_Corpus",
+    "corpus_name": "ChiLit_Corpus",
     "model_type": "w2v",
     "size": 150,
     "window": 30,

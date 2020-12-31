@@ -1,3 +1,4 @@
+import re
 from abc import ABC
 
 import gensim
@@ -14,6 +15,10 @@ class CorpusSupplierChiLit(CorpusSupplier, ABC):
         output_text = []
         for file_name in CorpusSupplier.get_files(self):
             with open(file_name, 'r') as file:
-                output_text.append(gensim.utils.simple_preprocess(file.read()))
+                #skip the first two lines in the document containing information about the author and title of the book.
+                file.readline()
+                file.readline()
+                text_without_authors_titles = file.read()
+                output_text.append(gensim.utils.simple_preprocess(text_without_authors_titles))
             print("Done appending " + file_name)
         return output_text
