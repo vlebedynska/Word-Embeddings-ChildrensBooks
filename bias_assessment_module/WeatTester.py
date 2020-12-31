@@ -3,6 +3,7 @@ from bias_assessment_module.BiasAssessorException import BiasAssessorException
 
 
 class WeatTester:
+
     def __init__(self, module, bias_categories):
         self._module = module
         self._bias_categories = bias_categories
@@ -18,16 +19,17 @@ class WeatTester:
 
 if __name__ == '__main__':
     module = BiasAssessmentModule("config.json")
-    bias_categories = [("gender.b1", True),
-                       ("gender.b2", True),
-                       ("gender.b3", True),
-                       ("gender.b4", True),
-                       ("gender.b5", True),
+    bias_categories = [("gender.b1", False),
+                       ("gender.b2", False),
+                       ("gender.b3", False),
+                       ("gender.b4", False),
+                       ("gender.b5", False),
                        ("flowers_vs_insects", False),
                        ("animals", False),
                        ("dog_cat", False),
                        ("race", False),
                        ("gender_math", False),
+                       ("age", True),
                        ("religion_with_names", False),
                        ("religion_christianity_islam", False),
                        ("religion_christianity_judaism", False),

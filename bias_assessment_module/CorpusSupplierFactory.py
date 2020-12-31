@@ -3,6 +3,7 @@ import os
 
 from bias_assessment_module.CorpusSupplier import CorpusSupplier
 from bias_assessment_module.CorpusSupplierCLLIC import CorpusSupplierCLLIC
+from bias_assessment_module.CorpusSupplierCPBC import CorpusSupplierCPBC
 from bias_assessment_module.CorpusSupplierChiLit import CorpusSupplierChiLit
 from bias_assessment_module.CorpusSupplierChiLitSmall import CorpusSupplierChiLitSmall
 
@@ -12,7 +13,8 @@ class CorpusSupplierFactory:
     corpus_types = {
         "CorpusSupplierChiLit": CorpusSupplierChiLit,
         "CorpusSupplierCLLIC": CorpusSupplierCLLIC,
-        "CorpusSupplierChiLitSmall": CorpusSupplierChiLitSmall
+        "CorpusSupplierChiLitSmall": CorpusSupplierChiLitSmall,
+        "CorpusSupplierCPBC": CorpusSupplierCPBC
     }
 
 

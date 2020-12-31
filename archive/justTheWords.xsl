@@ -1,17 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 version="1.0">
-
-  <xsl:output method="text" encoding="utf-8" />
-
-  <xsl:template match="teiHeader"/>
-
-<xsl:template match="s">
-   <xsl:value-of select="normalize-space(.)"/>
-    <xsl:text> </xsl:text>
-</xsl:template>
-
-
+    <xsl:output method="text" encoding="utf-8"/>
+    <xsl:template match="teiHeader"/>
+    <xsl:template match="s">
+        <xsl:value-of select="normalize-space(.)"/>
+        <xsl:text></xsl:text>
+    </xsl:template>
 </xsl:stylesheet>
 <!-- This stylesheet removes all the tagging and metadata from a BNC
 text. It contains two templates, one to match any teiHeader element
