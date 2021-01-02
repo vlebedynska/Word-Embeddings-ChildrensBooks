@@ -1,3 +1,4 @@
+import random
 from abc import ABC
 
 import gensim
@@ -33,18 +34,38 @@ class ChiLitSupplier(ModelAndCorpusSupplier):
 
     def _load_data(self):
         corpora_amount = self._model_config["amount_of_corpora"]
+        amount_of_words = 68103
         corpora = []
         for corpus in range(corpora_amount):
             output_text = []
-            for file_name in ModelAndCorpusSupplier.get_files(self):
-                with open(file_name, 'r') as file:
-                    file.readline()  # skip line "Title:..."
-                    file.readline()  # skip line "Author:..."
-                    text_without_authors_titles = file.read()
-                    output_text.append(gensim.utils.simple_preprocess(text_without_authors_titles))
-                print("Done appending " + file_name)
+            current_corpus_size = 0
+            file_names = []
+            if corpora_amount != 1:
+                my_files = [file_name for file_name in ModelAndCorpusSupplier.get_files(self)]
+                random.shuffle(my_files)
+                for i, file_name in enumerate(my_files):
+                    if current_corpus_size < amount_of_words:
+
+                        output_text_local = []
+                        with open(file_name, 'r') as file:
+                            file.readline()  # skip line "Title:..."
+                            file.readline()  # skip line "Author:..."
+                            for _, line in enumerate(file):
+                                if current_corpus_size < amount_of_words:
+                                    line_data = file.readline()
+                                    output_text_local.extend(gensim.utils.simple_preprocess(line_data))
+                                    current_corpus_size = current_corpus_size + len(gensim.utils.simple_preprocess(line_data))
+                        output_text.append(output_text_local)
+            else:
+                for file_name in sorted(ModelAndCorpusSupplier.get_files(self), key=str.lower):
+                    with open(file_name, 'r') as file:
+                        file.readline()  # skip line "Title:..."
+                        file.readline()  # skip line "Author:..."
+                        output_text.append(gensim.utils.simple_preprocess(file.read()))
+                        print("Done appending " + file_name)
             corpora.append(output_text)
         return corpora
+
 
     def _config_to_id(self):
         return "{model_path}{corpus_name}_size{size}_wnd{window}_sg{sg}_e{epochs}".format(**self._model_config)

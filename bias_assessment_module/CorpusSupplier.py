@@ -5,7 +5,7 @@ from bias_assessment_module.ModelSupplier import ModelSupplier
 
 class CorpusSupplier(ABC):
     """
-    :param test test
+    :param get_custom_size_corpus get_custom_size_corpus
 
     """
 
