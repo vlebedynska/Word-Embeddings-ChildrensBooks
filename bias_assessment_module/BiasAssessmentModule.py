@@ -13,7 +13,7 @@ class BiasAssessmentModule():
         self._model_handler = ModelHandler.create_and_load(config["model"])
         # delete old entries in the results-file
         BiasAssessmentModule.test_result_dump(self._model_handler.model_id, self._test_results)
-        self._bias_assessor = BiasAssessor.create(self._model_handler.model, config["weat_lists"])
+        self._bias_assessor = BiasAssessor.create(self._model_handler.models, config["weat_lists"])
 
     @property
     def test_results(self):

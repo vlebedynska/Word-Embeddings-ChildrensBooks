@@ -3,6 +3,7 @@
     "corpus_path": "data/ChiLit_Corpus",
     "model_path": "data/cache/",
     "corpus_name": "ChiLit_Corpus",
+    "amount_of_corpora": 1,
     "model_type": "w2v",
     "size": 150,
     "window": 30,

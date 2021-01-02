@@ -1,7 +1,7 @@
 import os
 from abc import ABC, abstractmethod
-import gensim
 
+from bias_assessment_module.ModelSupplier import ModelSupplier
 
 class CorpusSupplier(ABC):
     """
@@ -9,22 +9,10 @@ class CorpusSupplier(ABC):
 
     """
 
-    CONFIGURATION_FILENAME = "_config.json"
-
-    def __init__(self, corpus_path, config):
-        self._corpus_path = corpus_path
-        self._config = config
-
     @abstractmethod
-    def load_data(self):
+    def _load_data(self):
         """
         Method which loads data
-        :returns list of str
+        :returns list of corpora in form of tokens list
         """
         pass
-
-    def get_files(self):
-        for file_name in os.listdir(self._corpus_path):
-            if file_name == CorpusSupplier.CONFIGURATION_FILENAME:
-                continue
-            yield os.path.join(self._corpus_path, file_name)

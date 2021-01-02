@@ -1,5 +1,6 @@
 from bias_assessment_module.BiasAssessmentModule import BiasAssessmentModule
 from bias_assessment_module.BiasAssessorException import BiasAssessorException
+from bias_assessment_module.Evaluator import Evaluator
 
 
 class WeatTester:
@@ -11,8 +12,10 @@ class WeatTester:
     def run_weat_test(self):
         for bias_category in self._bias_categories:
             try:
-                test_results = self._module.bias_assessor.start_bias_test(bias_category)
-                BiasAssessmentModule.test_result_dump(self._module.model_handler.model_id, test_results, True)
+                #try for each corpus
+                full_test_results = self._module.bias_assessor.start_bias_test(bias_category)
+                evaluated_test_results = Evaluator.evaluate_mean(full_test_results)
+                BiasAssessmentModule.test_result_dump(self._module.model_handler.model_id, evaluated_test_results, True)
             except BiasAssessorException as e:
                 print(e)
 

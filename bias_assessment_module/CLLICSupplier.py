@@ -5,7 +5,7 @@ import gensim
 from bias_assessment_module.CorpusSupplier import CorpusSupplier
 
 
-class CorpusSupplierCLLIC(CorpusSupplier, ABC):
+class CLLICSupplier(CorpusSupplier, ABC):
 
     def __init__(self, corpus_path, config):
         super().__init__(corpus_path, config)

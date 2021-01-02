@@ -11,13 +11,13 @@ from bias_assessment_module.Utils import Utils
 
 
 class BiasAssessor:
-    def __init__(self, model, config):
-        self._model = model
+    def __init__(self, models, config):
+        self._models = models
         self._config = config
 
     @staticmethod
-    def create(model, config):
-        return BiasAssessor(model, config)
+    def create(models, config):
+        return BiasAssessor(models, config)
 
     def bias_test_for_clusters(self, attr_a, attr_b, target_words_from_clusters, bias_category):
         test_results = []
@@ -34,14 +34,18 @@ class BiasAssessor:
         return test_results
 
     def start_bias_test(self, bias_category):
-        test_results = [self.bias_test(
-            self._config["lists"][bias_category]["attr"]["a"],
-            self._config["lists"][bias_category]["attr"]["b"],
-            self._config["lists"][bias_category]["target"]["x"],
-            self._config["lists"][bias_category]["target"]["y"],
-            bias_category
-        )]
-        return test_results
+        full_test_results = []
+        for model in self._models:
+            test_results = [self.bias_test(
+                model,
+                self._config["lists"][bias_category]["attr"]["a"],
+                self._config["lists"][bias_category]["attr"]["b"],
+                self._config["lists"][bias_category]["target"]["x"],
+                self._config["lists"][bias_category]["target"]["y"],
+                bias_category
+            )]
+            full_test_results.append(test_results)
+        return full_test_results
 
     # TODO add subcategories for bias_categories if needed -> for this define "default" bias_subcategory as constant
     #  value and change config.json
@@ -53,9 +57,9 @@ class BiasAssessor:
         lambda target_x: len(target_x) > 0,
         lambda target_y: len(target_y) > 0
     )
-    def bias_test(self, attr_a, attr_b, target_x, target_y, bias_category):
+    def bias_test(self, model, attr_a, attr_b, target_x, target_y, bias_category):
         start_time = time.time()
-        wv = self._model.wv
+        wv = model.wv
         number_of_permutations = self._config["number_of_permutations"]
         a_attrs, a_filtered_out = Utils.filter_list(wv.vocab, attr_a)
         b_attrs, b_filtered_out = Utils.filter_list(wv.vocab, attr_b)
