@@ -10,12 +10,15 @@ class WeatTester:
         self._bias_categories = bias_categories
 
     def run_weat_test(self):
+        BiasAssessmentModule.test_results_dump(self._module.model_handler.model_id, "_results.txt", [])  # delete old entries in the results-file
+        BiasAssessmentModule.test_results_dump(self._module._model_handler.model_id, "_results_full.txt", [])  # delete old entries in the results-file
         for bias_category in self._bias_categories:
             try:
                 #try for each corpus
                 full_test_results = self._module.bias_assessor.start_bias_test(bias_category)
                 evaluated_test_results = Evaluator.evaluate_mean(full_test_results)
-                BiasAssessmentModule.test_result_dump(self._module.model_handler.model_id, evaluated_test_results, True)
+                BiasAssessmentModule.test_result_dump(self._module.model_handler.model_id, "_results.txt", evaluated_test_results, True)
+                BiasAssessmentModule.test_results_dump(self._module.model_handler.model_id, "_results_full.txt", full_test_results, True)
             except BiasAssessorException as e:
                 print(e)
 
@@ -43,9 +46,9 @@ if __name__ == '__main__':
                        ]
 
     bias_categories_for_weat_test = []
-    for bias_categorie, active in bias_categories:
+    for bias_category, active in bias_categories:
         if active:
-            bias_categories_for_weat_test.append(bias_categorie)
+            bias_categories_for_weat_test.append(bias_category)
 
 
     weat_tester = WeatTester(module, bias_categories_for_weat_test)

@@ -18,21 +18,41 @@ class TestResult:
     def bias_category(self):
         return self._bias_category
 
+    @bias_category.setter
+    def bias_category(self, bias_category):
+        self._bias_category = bias_category
+
     @property
     def p_value(self):
         return self._p_value
+
+    @p_value.setter
+    def p_value(self, p_value):
+        self._p_value = p_value
 
     @property
     def cohens_d(self):
         return self._cohens_d
 
+    @cohens_d.setter
+    def cohens_d(self, cohens_d):
+        self._cohens_d = cohens_d
+
     @property
     def number_of_permutations(self):
         return self._number_of_permutations
 
+    @number_of_permutations.setter
+    def number_of_permutations(self, number_of_permutations):
+        self._number_of_permutations = number_of_permutations
+
     @property
     def total_time(self):
         return self._total_time
+
+    @total_time.setter
+    def total_time(self, total_time):
+        self._total_time = total_time
 
     @property
     def absent_words(self):
