@@ -1,8 +1,8 @@
 {
   "model": {
-    "corpus_path": "data/ChiLit_Corpus",
+    "corpus_path": "data/CLLIP_Corpus",
     "model_path": "data/cache/",
-    "corpus_name": "ChiLit_Corpus",
+    "corpus_name": "CLLIP",
     "amount_of_corpora": 2,
     "size": 150,
     "window": 30,
