@@ -9,8 +9,6 @@ from bias_assessment_module.ModelAndCorpusSupplier import ModelAndCorpusSupplier
 
 class ChiLitSupplier(ModelAndCorpusSupplier):
 
-    CORPUS_SIZE = 300_000
-
     def __init__(self, corpus_path, corpus_config, model_config):
         super().__init__(corpus_path, corpus_config, model_config)
 
@@ -23,7 +21,7 @@ class ChiLitSupplier(ModelAndCorpusSupplier):
         return models
 
     def save_models(self):
-        corpora = self._load_data()
+        corpora = self._load_data(self._model_config["amount_of_corpora"])
         models = []
         for counter, corpus in enumerate(corpora):
             model_id_local = self._config_to_id() + "_" + str(counter)
@@ -33,13 +31,6 @@ class ChiLitSupplier(ModelAndCorpusSupplier):
             model.save(model_id_local)
             models.append(model)
         return models
-
-    def _load_data(self):
-        corpora_amount = self._model_config["amount_of_corpora"]
-        if corpora_amount == 1:
-            return self._load_single_corpus()
-        else:
-            return self._load_multiple_corpora(ChiLitSupplier.CORPUS_SIZE, corpora_amount)
 
     def _load_single_corpus(self):
         output_text = []
@@ -52,38 +43,21 @@ class ChiLitSupplier(ModelAndCorpusSupplier):
         corpora = [output_text]
         return corpora
 
-    def _load_multiple_corpora(self, corpus_size, corpora_amount):
-        corpora = []
-        output_text = []
-        current_corpus_size = 0
+
+
+    def _load_multiple_corpora(self):
         my_files = [file_name for file_name in self.get_files()]
         random.shuffle(my_files)
         for file_name in my_files:
-            output_text_local = []
-            print("Start appending " + file_name + " \t Current corpus size " + str(current_corpus_size))
+            print("Start appending " + file_name)
             with open(file_name, 'r') as file:
                 file.readline()  # skip line "Title:..."
                 file.readline()  # skip line "Author:..."
                 for line in file:
                     tokens = gensim.utils.simple_preprocess(line)
-                    output_text_local.extend(tokens)
-                    current_corpus_size += len(tokens)
-                    if current_corpus_size >= corpus_size:
-                        output_text.append(output_text_local)
-                        corpora.append(output_text)
-                        print("Corpus filled: " + str(len(corpora)) +  "\t Corpus size: " + str(current_corpus_size))
-                        output_text = []
-                        output_text_local = []
-                        current_corpus_size = 0
-                        if len(corpora) >= corpora_amount:
-                            break
-            output_text.append(output_text_local)
-            if len(corpora) >= corpora_amount:
-                break
-        if len(corpora) != corpora_amount:
-            raise ValueError("End of data reached. Current corpora ammount is " + str(len(corpora)) + " of expected " +
-                             str(corpora_amount))
-        return corpora
+                    yield tokens, False
+                yield [], True # document end reached
+
 
     def _config_to_id(self):
         return "{model_path}{corpus_name}_size{size}_wnd{window}_sg{sg}_e{epochs}".format(**self._model_config)

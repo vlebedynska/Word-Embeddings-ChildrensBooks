@@ -14,7 +14,6 @@ class ModelAndCorpusSupplier(ModelSupplier, CorpusSupplier, ABC):
         self._corpus_config = corpus_config
         self._model_config = model_config
 
-
     def get_files(self):
         for file_name in os.listdir(self._corpus_path):
             if file_name == ModelAndCorpusSupplier.CONFIGURATION_FILENAME:
