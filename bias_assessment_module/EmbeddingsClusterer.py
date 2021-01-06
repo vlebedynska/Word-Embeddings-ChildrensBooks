@@ -3,7 +3,6 @@ from sklearn.cluster import MiniBatchKMeans
 
 from bias_assessment_module.BiasAssessor import BiasAssessor
 
-
 class EmbeddigsClusterer:
     def __init__(self, cluster2word, model, config):
         self._model = model
@@ -31,7 +30,7 @@ class EmbeddigsClusterer:
             cluster_words = self._cluster2word[cluster]
             word_score = []
             for word in cluster_words:
-                score = BiasAssessor.cosine_means_difference(self._model.wv, word, config["attr"]["male"], config["attr"]["female"])
+                score = BiasAssessor.cosine_means_difference(self._model.wv, word, config["attr"]["b"], config["attr"]["a"])
                 word_score.append((word, score))
             score_for_word_in_cluster.update({cluster: word_score})
         return score_for_word_in_cluster

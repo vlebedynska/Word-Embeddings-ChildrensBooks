@@ -20,10 +20,9 @@ class ModelHandler:
         model_supplier = ModelSupplierFactory.create_model_supplier(self._config)
         self._model_id = model_supplier.model_id
         if not os.path.exists(self._model_id) or force_training:
-            return model_supplier.save_models()
-        else:
-            print("Load model")
-            return model_supplier.load_models()
+            model_supplier.save_models()
+        print("Load model")
+        return model_supplier.load_models()
 
 
     # def _save(self, model_id, corpus_supplier):

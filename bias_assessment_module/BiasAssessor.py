@@ -22,15 +22,17 @@ class BiasAssessor:
     def bias_test_for_clusters(self, attr_a, attr_b, target_words_from_clusters, bias_category):
         test_results = []
         for a_target_words, b_target_words in target_words_from_clusters:
-            if len(a_target_words) == 0 or len(b_target_words) == 0:
-                continue
-            test_results.append(self.bias_test(
-                attr_a,
-                attr_b,
-                a_target_words,
-                b_target_words,
-                bias_category
-            ))
+            for model in self._models:
+                if len(a_target_words) == 0 or len(b_target_words) == 0:
+                    continue
+                test_results.append(self.bias_test(
+                    self._models[0],
+                    attr_a,
+                    attr_b,
+                    a_target_words,
+                    b_target_words,
+                    bias_category
+                ))
         return test_results
 
     def start_bias_test(self, bias_category):

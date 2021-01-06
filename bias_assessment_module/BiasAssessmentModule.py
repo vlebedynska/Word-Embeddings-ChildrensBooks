@@ -7,13 +7,20 @@ from bias_assessment_module.TestResult import TestResult
 
 
 class BiasAssessmentModule():
-    def __init__(self, config):
-        self._config = config
-        with open(config, "r") as config_file:
+    def __init__(self, config_filename):
+        with open(config_filename, "r") as config_file:
             config = json.load(config_file)
+        self._config = config
+        # if args.corpus == "w2v":
+        #     with open(config, "r") as jsonFile:
+        #         data = json.load(jsonFile)
+        #     data["model"]["corpus_name"] = args.corpus
+        #     with open(config, "w") as jsonFile:
+        #         json.dump(data, jsonFile)
+
+
         self._model_handler = ModelHandler.create_and_load(config["model"])
         self._bias_assessor = BiasAssessor.create(self._model_handler.models, config["weat_lists"])
-
 
     @property
     def model_handler(self):
@@ -24,6 +31,7 @@ class BiasAssessmentModule():
         return self._bias_assessor
 
 
+
     def run(self, config):
         pass
 
@@ -32,15 +40,7 @@ class BiasAssessmentModule():
         # print(format(model_handler.model.wv.similarity('queen', 'king')))
 
 
-        # clusterer = EmbeddigsClusterer.create(model_handler.model, config["clustering"])
-        # score_for_word_in_cluster = clusterer.calculate_score(config["weat_lists"]["lists"]["gender.b1"])
-        # target_words_from_clusters = clusterer.get_target_words(score_for_word_in_cluster)
-        # cluster_test_results = bias_assessor.bias_test_for_clusters(
-        #     config["weat_lists"]["lists"]["gender.b1"]["attr"]["a"],
-        #     config["weat_lists"]["lists"]["gender.b1"]["attr"]["b"],
-        #     target_words_from_clusters,
-        #     "gender.b1")
-        # BiasAssessmentModule.test_result_dump(model_handler.model_id, cluster_test_results, True)
+
 
 
 
@@ -63,3 +63,7 @@ class BiasAssessmentModule():
     def prettify_test_result(model_name, test_result):
         print(model_name + " Bias Category: {_bias_category}\t p-value: {_p_value}\t cohen's d: {_cohens_d}\t absent words: {_absent_words}"\
             .format(**vars(test_result)))
+
+    @property
+    def config(self):
+        return self._config

@@ -2,8 +2,8 @@
   "model": {
     "corpus_path": "data/CLLIP_Corpus",
     "model_path": "data/cache/",
-    "corpus_name": "CLLIP",
-    "amount_of_corpora": 2,
+    "corpus_name": "CLLIP_Corpus",
+    "amount_of_corpora": 1,
     "size": 150,
     "window": 30,
     "sg": 1,
@@ -528,7 +528,7 @@
             "terrific"
           ],
           "y": [
-            "Detest",
+            "detest",
             "sadness",
             "horrific",
             "yucky",
