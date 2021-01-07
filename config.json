@@ -3,9 +3,9 @@
     "corpus_path": "data/CLLIP_Corpus",
     "model_path": "data/cache/",
     "corpus_name": "CLLIP_Corpus",
-    "amount_of_corpora": 1,
-    "size": 150,
-    "window": 30,
+    "amount_of_corpora": 10,
+    "size": 300,
+    "window": 10,
     "sg": 1,
     "epochs": 10
   },
@@ -19,9 +19,9 @@
   },
   "weat_lists": {
     "lists": {
-      "gender.b1": {
+      "G1_career_vs_family": {
         "attr": {
-          "b": [
+          "a": [
             "male",
             "man",
             "boy",
@@ -34,7 +34,7 @@
             "uncle",
             "grandfather"
           ],
-          "a": [
+          "b": [
             "female",
             "woman",
             "girl",
@@ -71,9 +71,9 @@
           ]
         }
       },
-      "gender.b2": {
+      "G2_maths_vs_arts": {
         "attr": {
-          "b": [
+          "a": [
             "male",
             "man",
             "boy",
@@ -86,7 +86,7 @@
             "uncle",
             "grandfather"
           ],
-          "a": [
+          "b": [
             "female",
             "woman",
             "girl",
@@ -123,9 +123,9 @@
           ]
         }
       },
-      "gender.b3": {
+      "G3_science_vs_arts": {
         "attr": {
-          "b": [
+          "a": [
             "male",
             "man",
             "boy",
@@ -138,7 +138,7 @@
             "uncle",
             "grandfather"
           ],
-          "a": [
+          "b": [
             "female",
             "woman",
             "girl",
@@ -175,9 +175,9 @@
           ]
         }
       },
-      "gender.b4": {
+      "G4_intelligence_vs_appearance": {
         "attr": {
-          "b": [
+          "a": [
             "male",
             "man",
             "boy",
@@ -190,7 +190,7 @@
             "uncle",
             "grandfather"
           ],
-          "a": [
+          "b": [
             "female",
             "woman",
             "girl",
@@ -261,9 +261,9 @@
           ]
         }
       },
-      "gender.b5": {
+      "G5_strength_vs_weakness": {
         "attr": {
-          "b": [
+          "a": [
             "male",
             "man",
             "boy",
@@ -276,7 +276,7 @@
             "uncle",
             "grandfather"
           ],
-          "a": [
+          "b": [
             "female",
             "woman",
             "girl",
@@ -327,219 +327,7 @@
           ]
         }
       },
-      "animals": {
-        "attr": {
-          "a": [
-            "dog",
-            "pig",
-            "chicken",
-            "duck",
-            "rabbit"
-          ],
-          "b": [
-            "cat",
-            "mouse",
-            "wolf",
-            "fox",
-            "bear"
-          ]
-        },
-        "target": {
-          "x": [
-            "nice",
-            "smart",
-            "brave",
-            "happy",
-            "lovable",
-            "caring",
-            "peaceful",
-            "cute",
-            "polite"
-          ],
-          "y": [
-            "mean",
-            "lazy",
-            "sad",
-            "careless",
-            "grumpy",
-            "boring",
-            "unfriendly",
-            "rude",
-            "selfish"
-          ]
-        }
-      },
-      "dog_cat": {
-        "attr": {
-          "a": [
-            "dog",
-            "puppy",
-            "bully",
-            "pup",
-            "doggy",
-            "hound",
-            "bitch",
-            "cur",
-            "mongrel"
-          ],
-          "b": [
-            "cat",
-            "kitten",
-            "bobcat",
-            "cheetah",
-            "cougar",
-            "jaguar",
-            "kitty",
-            "leopard",
-            "lion"
-          ]
-        },
-        "target": {
-          "x": [
-            "nice",
-            "smart",
-            "brave",
-            "happy",
-            "lovable",
-            "caring",
-            "peaceful",
-            "cute",
-            "polite",
-            "beautiful",
-            "cool",
-            "sly",
-            "charming",
-            "clever"
-          ],
-          "y": [
-            "mean",
-            "lazy",
-            "sad",
-            "careless",
-            "grumpy",
-            "boring",
-            "unfriendly",
-            "rude",
-            "selfish",
-            "evil",
-            "unlucky",
-            "gullible",
-            "depressed",
-            "hyperactive"
-          ]
-        }
-      },
-      "race": {
-        "attr": {
-          "a": [
-            "Latonya",
-            "Shavonn",
-            "Tashika",
-            "Ebony"
-          ],
-          "b": [
-            "Meredith",
-            "Heather",
-            "Katie",
-            "Betsy"
-          ]
-        },
-        "target": {
-          "x": [
-            "good",
-            "nice",
-            "fun",
-            "happy"
-          ],
-          "y": [
-            "bad",
-            "mean",
-            "yucky",
-            "mad"
-          ]
-        }
-      },
-      "gender_math": {
-        "attr": {
-          "a": [
-            "Alice",
-            "Jane",
-            "Mary",
-            "Wendy"
-          ],
-          "b": [
-            "Ben",
-            "Peter",
-            "John",
-            "Tom"
-          ]
-        },
-        "target": {
-          "x": [
-            "read",
-            "books",
-            "story",
-            "letters"
-          ],
-          "y": [
-            "addition",
-            "numbers",
-            "graph",
-            "math"
-          ]
-        }
-      },
-      "religion_with_names": {
-        "attr": {
-          "a": [
-            "Ernesto",
-            "Matthias",
-            "Maarten",
-            "Philippe",
-            "Guillame",
-            "Benoit",
-            "Takuya",
-            "Kazuki",
-            "Chaiyo",
-            "Marcelo"
-          ],
-          "b": [
-            "Hakim",
-            "Sharif",
-            "Yousef",
-            "Wahib",
-            "Akbar",
-            "Muhsin",
-            "Salim",
-            "Karim",
-            "Habib",
-            "Ashraf"
-          ]
-        },
-        "target": {
-          "x": [
-            "glad",
-            "friend",
-            "glorious",
-            "excellent",
-            "fantastic",
-            "pleasing",
-            "excitement",
-            "terrific"
-          ],
-          "y": [
-            "detest",
-            "sadness",
-            "horrific",
-            "yucky",
-            "annoy",
-            "nasty",
-            "hurtful",
-            "negative"
-          ]
-        }
-      },
-      "religion_christianity_islam": {
+      "RL1_Christianity_vs_Islam": {
         "attr": {
           "a": [
             "Jesus",
@@ -569,7 +357,7 @@
           ]
         }
       },
-      "religion_christianity_judaism": {
+      "RL2_Christianity_vs_Judaism": {
         "attr": {
           "a": [
             "Jesus",
@@ -599,7 +387,7 @@
           ]
         }
       },
-      "religion_judaism_islam": {
+      "RL3_Judaism_vs_Islam": {
         "attr": {
           "a": [
             "Abraham",
@@ -629,23 +417,23 @@
           ]
         }
       },
-      "age": {
+      "AG1_young_vs_old": {
         "attr": {
           "a": [
-            "grandmother",
-            "granny",
-            "dowager",
-            "grandfather",
-            "grandpa",
-            "elder"
-          ],
-          "b": [
             "child",
             "boy",
             "girl",
             "children",
             "youth",
             "lad"
+          ],
+          "b": [
+            "grandmother",
+            "granny",
+            "dowager",
+            "grandfather",
+            "grandpa",
+            "elder"
           ]
         },
         "target": {
@@ -671,9 +459,9 @@
           ]
         }
       },
-      "flowers_vs_insects": {
+      "A1_flowers_vs_insects": {
         "attr": {
-          "b": [
+          "a": [
             "aster",
             "clover",
             "hyacinth",
@@ -700,7 +488,7 @@
             "petunia",
             "zinnia"
           ],
-          "a": [
+          "b": [
             "ant",
             "caterpillar",
             "flea",
@@ -785,23 +573,37 @@
           ]
         }
       },
-      "wolf_sheep": {
+      "A2_innocent_sheep_vs_cruel_wolf": {
         "attr": {
-          "b": [
-            "coyote",
-            "wolf",
-            "werewolf"
-          ],
           "a": [
             "sheep",
             "cattle",
             "cows",
             "mutton",
             "woolly"
+          ],
+          "b": [
+            "coyote",
+            "wolf",
+            "werewolf"
           ]
         },
         "target": {
           "x": [
+            "cute",
+            "guillable",
+            "sweet",
+            "innocent",
+            "love",
+            "peace",
+            "cheer",
+            "honest",
+            "lucky",
+            "happy",
+            "paradise",
+            "caress"
+          ],
+          "y": [
             "cruel",
             "evil",
             "villainous",
@@ -815,51 +617,24 @@
             "death",
             "grief",
             "poison"
-          ],
-          "y": [
-            "cute",
-            "guillable",
-            "sweet",
-            "innocent",
-            "love",
-            "peace",
-            "cheer",
-            "honest",
-            "lucky",
-            "happy",
-            "paradise",
-            "caress"
           ]
         }
       },
-      "fox_bird": {
+      "A3_naive_bird_vs_clever_fox": {
         "attr": {
-          "b": [
-            "fox"
-          ],
           "a": [
             "bird",
             "sparrow",
             "crow",
             "crane",
             "chicken"
+          ],
+          "b": [
+            "fox"
           ]
         },
         "target": {
           "x": [
-            "cruel",
-            "evil",
-            "villainous",
-            "seductive",
-            "hungry",
-            "dangerous",
-            "lusting",
-            "trick",
-            "wily",
-            "cunning",
-            "intelligent"
-          ],
-          "y": [
             "stupid",
             "foolish",
             "dull",
@@ -871,12 +646,25 @@
             "panicky",
             "shy",
             "worried"
+          ],
+          "y": [
+            "cruel",
+            "evil",
+            "villainous",
+            "seductive",
+            "hungry",
+            "dangerous",
+            "lusting",
+            "trick",
+            "wily",
+            "cunning",
+            "intelligent"
           ]
         }
       },
-      "lion_mouse": {
+      "A4_strong_lion_vs_tender_mouse": {
         "attr": {
-          "b": [
+          "a": [
             "lion",
             "sphinx",
             "wildcat",
@@ -884,7 +672,7 @@
             "cougar",
             "leo"
           ],
-          "a": [
+          "b": [
             "mouse",
             "mice",
             "murine",
@@ -895,11 +683,13 @@
         },
         "target": {
           "x": [
+            "strong",
+            "bright",
+            "pride",
             "proud",
             "brave",
             "noble",
             "royal",
-            "strong",
             "king",
             "god",
             "hero",
@@ -908,6 +698,8 @@
             "majestic"
           ],
           "y": [
+            "tender",
+            "weak",
             "quiet",
             "silent",
             "frail",
@@ -921,8 +713,202 @@
             "nervous"
           ]
         }
+      },
+      "A5_faithful_dog_vs_selfish_cat": {
+        "attr": {
+          "a": [
+            "dog",
+            "puppy",
+            "bully",
+            "pup",
+            "doggy",
+            "hound",
+            "bitch",
+            "cur",
+            "mongrel"
+          ],
+          "b": [
+            "cat",
+            "kitten",
+            "bobcat",
+            "cheetah",
+            "cougar",
+            "jaguar",
+            "kitty",
+            "leopard",
+            "lion"
+          ]
+        },
+        "target": {
+          "x": [
+            "faithful",
+            "nice",
+            "friend",
+            "smart",
+            "brave",
+            "happy",
+            "lovable",
+            "caring",
+            "peaceful",
+            "cute",
+            "polite",
+            "beautiful",
+            "cool",
+            "sly",
+            "charming",
+            "clever"
+          ],
+          "y": [
+            "selfish",
+            "wild",
+            "feral",
+            "mean",
+            "lazy",
+            "annoy",
+            "sad",
+            "careless",
+            "grumpy",
+            "boring",
+            "unfriendly",
+            "rude",
+            "evil",
+            "unlucky",
+            "gullible",
+            "depressed"
+          ]
+        }
+      },
+      "CR1_European_American_vs_African_American": {
+        "attr": {
+          "a": [
+            "Meredith",
+            "Heather",
+            "Katie",
+            "Betsy"
+          ],
+          "b": [
+            "Latonya",
+            "Shavonn",
+            "Tashika",
+            "Ebony"
+          ]
+        },
+        "target": {
+          "x": [
+            "good",
+            "nice",
+            "fun",
+            "happy"
+          ],
+          "y": [
+            "bad",
+            "mean",
+            "yucky",
+            "mad"
+          ]
+        }
+      },
+      "CG1_math_vs_reading": {
+        "attr": {
+          "a": [
+            "Ben",
+            "Peter",
+            "John",
+            "Tom"
+          ],
+          "b": [
+            "Alice",
+            "Jane",
+            "Mary",
+            "Wendy"
+          ]
+        },
+        "target": {
+          "x": [
+            "addition",
+            "numbers",
+            "graph",
+            "math"
+          ],
+          "y": [
+            "read",
+            "books",
+            "story",
+            "letters"
+          ]
+        }
+      },
+      "CG2_math_vs_reading": {
+        "attr": {
+          "a": [
+            "boy",
+            "he",
+            "him",
+            "his",
+            "man",
+            "father",
+            "brother",
+            "uncle",
+            "grandfather"
+          ],
+          "b": [
+            "girl",
+            "she",
+            "her",
+            "lady",
+            "women",
+            "mother",
+            "sister",
+            "aunt",
+            "grandmother"
+          ]
+        },
+        "target": {
+          "x": [
+            "addition",
+            "numbers",
+            "graph",
+            "math"
+          ],
+          "y": [
+            "read",
+            "books",
+            "story",
+            "letters"
+          ]
+        }
+      },
+      "CA1_flowers_vs_insects": {
+        "attr": {
+          "a": [
+            "daffodil",
+            "daisy",
+            "tulip",
+            "violet"
+          ],
+          "b": [
+            "bug",
+            "wasp",
+            "mosquito",
+            "roach"
+          ]
+        },
+        "target": {
+          "x": [
+            "butterfly",
+            "heart",
+            "ice-cream",
+            "gift"
+          ],
+          "y": [
+            "wolf",
+            "witch",
+            "skull",
+            "injury"
+          ]
+        }
       }
     },
-    "number_of_permutations": 10000
+    "number_of_permutations": 100000
   }
 }

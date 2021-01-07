@@ -21,8 +21,8 @@ class ModelAndCorpusSupplier(ModelSupplier, CorpusSupplier, ABC):
 
     def get_files(self):
         file_to_ignore = os.path.join(self._corpus_path,ModelAndCorpusSupplier.CONFIGURATION_FILENAME)
-        for file_name in glob(self._corpus_path+"/*"):
-            if file_name == file_to_ignore:
+        for file_name in glob(self._corpus_path+"/**", recursive=True):
+            if os.path.isdir(file_name) or file_name == file_to_ignore:
                 continue
             yield file_name
 

@@ -29,44 +29,8 @@ def parse_args():
     parser.add_argument('-c', '--corpus', type=str, choices=['CLLIP_Corpus', 'ft'], default='w2v', help="Corpus name")
     return parser.parse_args()
 
-if __name__ == '__main__':
 
-    # parser = argparse.ArgumentParser(description=__doc__)
-    # parser.add_argument('-c', '--corpus', type=str, default='w2v', help="Corpus name")
-    # parser.parse_args()
-
-    print(parse_args())
-    module = BiasAssessmentModule("config.json")
-    bias_categories = [("gender.b1", True),
-                       ("gender.b2", False),
-                       ("gender.b3", False),
-                       ("gender.b4", False),
-                       ("gender.b5", False),
-                       ("flowers_vs_insects", False),
-                       ("animals", False),
-                       ("dog_cat", False),
-                       ("race", False),
-                       ("gender_math", False),
-                       ("age", True),
-                       ("religion_with_names", False),
-                       ("religion_christianity_islam", False),
-                       ("religion_christianity_judaism", False),
-                       ("religion_judaism_islam", False),
-                       ("wolf_sheep", False),
-                       ("fox_bird", False),
-                       ("lion_mouse", False)
-                       ]
-
-    bias_categories_for_weat_test = []
-    for bias_category, active in bias_categories:
-        if active:
-            bias_categories_for_weat_test.append(bias_category)
-
-
-    weat_tester = WeatTester(module, bias_categories_for_weat_test)
-    weat_tester.run_weat_test()
-
-
+def start_clustering():
     clusterer = EmbeddigsClusterer.create(module.model_handler.models[0], module.config["clustering"])
     score_for_word_in_cluster = clusterer.calculate_score(module.config["weat_lists"]["lists"]["gender.b1"])
     target_words_from_clusters = clusterer.get_target_words(score_for_word_in_cluster)
@@ -75,5 +39,41 @@ if __name__ == '__main__':
         module.config["weat_lists"]["lists"]["gender.b1"]["attr"]["b"],
         target_words_from_clusters,
         "gender.b1")
-    BiasAssessmentModule.test_result_dump(module.model_handler.model_id, "_results_clusters.txt", cluster_test_results, True)
+    BiasAssessmentModule.test_result_dump(module.model_handler.model_id, "_results_clusters.txt", cluster_test_results,
+                                          True)
+
+
+if __name__ == '__main__':
+
+    # parser = argparse.ArgumentParser(description=__doc__)
+    # parser.add_argument('-c', '--corpus', type=str, default='w2v', help="Corpus name")
+    # parser.parse_args()
+
+    print(parse_args())
+    module = BiasAssessmentModule("config.json")
+    bias_categories = [
+        "G1_career_vs_family",
+        "G2_maths_vs_arts",
+        "G3_science_vs_arts",
+        "G4_intelligence_vs_appearance",
+        "G5_strength_vs_weakness",
+        "RL1_Christianity_vs_Islam",
+        "RL2_Christianity_vs_Judaism",
+        "RL3_Judaism_vs_Islam",
+        "AG1_young_vs_old",
+        "A1_flowers_vs_insects",
+        "A2_innocent_sheep_vs_cruel_wolf",
+        "A3_naive_bird_vs_clever_fox",
+        "A4_strong_lion_vs_tender_mouse",
+        "A5_faithful_dog_vs_selfish_cat",
+        "CR1_European_American_vs_African_American",
+        "CG1_math_vs_reading",
+        "CG2_math_vs_reading",
+        "CA1_flowers_vs_insects"
+        ]
+
+    weat_tester = WeatTester(module, bias_categories)
+    weat_tester.run_weat_test()
+
+    # start_clustering()
 

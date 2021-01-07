@@ -75,8 +75,8 @@ class BiasAssessor:
             a_attrs, b_attrs = Utils.balance_sets(a_attrs, b_attrs)
             x_targets, y_targets = Utils.balance_sets(x_targets, y_targets)
 
-            p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, b_attrs, a_attrs, number_of_permutations)
-            cohens_d = BiasAssessor.get_cohens_d(wv, x_targets, y_targets, b_attrs, a_attrs)
+            p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, a_attrs, b_attrs, number_of_permutations)
+            cohens_d = BiasAssessor.get_cohens_d(wv, x_targets, y_targets, a_attrs, b_attrs)
             used = [a_attrs, b_attrs, x_targets, y_targets]
             absent = [a_filtered_out, b_filtered_out, x_filtered_out, y_filtered_out]
             total_time = time.time() - start_time
@@ -86,57 +86,57 @@ class BiasAssessor:
 
 
     @staticmethod
-    def weat_rand_test(wv, b_targets, a_targets, b_attrs, a_attrs, iterations):
-        u_words = b_targets + a_targets
+    def weat_rand_test(wv, x_targets, y_targets, a_attrs, b_attrs, iterations):
+        u_words = x_targets + y_targets
         runs = np.min((iterations, math.factorial(len(u_words))))
         seen = set()
 
-        original = BiasAssessor.test_statistic(wv, b_targets, a_targets, b_attrs, a_attrs)
+        original = BiasAssessor.test_statistic(wv, x_targets, y_targets, a_attrs, b_attrs)
         r = 0
         for i in range(runs):
             permutation = tuple(random.sample(u_words, len(u_words)))
             if i % 1000 == 0:
                 print("permutation number " + str(i) + "/" + str(runs))
             if permutation not in seen:
-                m_hat = permutation[0:len(b_targets)]
-                f_hat = permutation[len(a_targets):]
-                if BiasAssessor.test_statistic(wv, m_hat, f_hat, b_attrs, a_attrs) > original:
+                x_hat = permutation[0:len(x_targets)]
+                y_hat = permutation[len(y_targets):]
+                if BiasAssessor.test_statistic(wv, x_hat, y_hat, a_attrs, b_attrs) > original:
                     r += 1
                 seen.add(permutation)
         p_value = r / runs
         return p_value
 
     @staticmethod
-    def get_cohens_d(wv, b_targets, a_targets, b_attrs, a_attrs):
-        if len(b_targets) == 0 or len(a_targets) == 0:
+    def get_cohens_d(wv, x_targets, y_targets, a_attrs, b_attrs):
+        if len(x_targets) == 0 or len(y_targets) == 0:
             return "NA"
-        m_sum, f_sum = BiasAssessor.test_sums(wv, b_targets, a_targets, b_attrs, a_attrs)
-        m_mean = m_sum / len(b_targets)
-        f_mean = f_sum / len(a_targets)
-        m_u_f = np.array([BiasAssessor.cosine_means_difference(wv, w, b_attrs, a_attrs) for w in b_targets + a_targets])
-        stdev = m_u_f.std(ddof=1)
-        return (m_mean - f_mean) / stdev
+        x_sum, y_sum = BiasAssessor.test_sums(wv, x_targets, y_targets, a_attrs, b_attrs)
+        x_mean = x_sum / len(x_targets)
+        y_mean = y_sum / len(y_targets)
+        x_u_y = np.array([BiasAssessor.cosine_means_difference(wv, w, a_attrs, b_attrs) for w in x_targets + y_targets])
+        stdev = x_u_y.std(ddof=1)
+        return (x_mean - y_mean) / stdev
 
     @staticmethod
-    def test_statistic(wv, b_targets, a_targets, b_attrs, a_attrs):
-        b_sum, a_sum = BiasAssessor.test_sums(wv, b_targets, a_targets, b_attrs, a_attrs)
+    def test_statistic(wv, x_targets, y_targets, a_attrs, b_attrs):
+        b_sum, a_sum = BiasAssessor.test_sums(wv, x_targets, y_targets, a_attrs, b_attrs)
         return b_sum - a_sum
 
     @staticmethod
-    def test_sums(wv, b_targets, a_targets, b_attrs, a_attrs):
-        m_sum = 0.0
-        f_sum = 0.0
-        for t in b_targets:
-            m_sum += BiasAssessor.cosine_means_difference(wv, t, b_attrs, a_attrs)
-        for t in a_targets:
-            f_sum += BiasAssessor.cosine_means_difference(wv, t, b_attrs, a_attrs)
-        return m_sum, f_sum
+    def test_sums(wv, x_targets, y_targets, a_attrs, b_attrs):
+        x_sum = 0.0
+        y_sum = 0.0
+        for t in x_targets:
+            x_sum += BiasAssessor.cosine_means_difference(wv, t, a_attrs, b_attrs)
+        for t in y_targets:
+            y_sum += BiasAssessor.cosine_means_difference(wv, t, a_attrs, b_attrs)
+        return x_sum, y_sum
 
     @staticmethod
-    def cosine_means_difference(wv, word, b_attrs, a_attrs):
-        male_mean = BiasAssessor.cosine_mean(wv, word, b_attrs)
-        female_mean = BiasAssessor.cosine_mean(wv, word, a_attrs)
-        result = male_mean - female_mean
+    def cosine_means_difference(wv, word, a_attrs, b_attrs):
+        a_mean = BiasAssessor.cosine_mean(wv, word, a_attrs)
+        b_mean = BiasAssessor.cosine_mean(wv, word, b_attrs)
+        result = a_mean - b_mean
         # print("current word: " + word + "\tmale_mean: " + str(male_mean) + "\tfemale_mean: " + str(female_mean) + "\t result: " + str(result))
         return result
 
