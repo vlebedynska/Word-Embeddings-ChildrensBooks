@@ -53,6 +53,15 @@ class EmbeddigsClusterer:
             target_words.append((x_target_words, y_target_words))
         return target_words
 
+    def prepare_config_for_weat(self, bias_category):
+        score_for_word_in_cluster = self.calculate_score(bias_category)
+        target_words_from_clusters = self.get_target_words(score_for_word_in_cluster)
+        for x_target_words, y_target_words in target_words_from_clusters:
+            weat_config_for_cluster = bias_category.copy({
+                "x": x_target_words,
+                "y": y_target_words
+            })
+            return weat_config_for_cluster
 
     @staticmethod
     def choose_words(x_target_words, y_target_words, x_target_scores, y_target_scores, nwords=-1):
@@ -64,3 +73,8 @@ class EmbeddigsClusterer:
         sel_x_words = [x_target_words[i] for i in x_topn_indices]
         sel_y_words = [y_target_words[i] for i in y_topn_indices]
         return sel_x_words, sel_y_words
+
+
+    @property
+    def model(self):
+        return self._model

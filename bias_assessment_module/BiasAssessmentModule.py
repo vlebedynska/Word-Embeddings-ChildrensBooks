@@ -1,26 +1,82 @@
 from bias_assessment_module.BiasAssessor import BiasAssessor
+from bias_assessment_module.BiasAssessorException import BiasAssessorException
 from bias_assessment_module.EmbeddingsClusterer import EmbeddigsClusterer
+from bias_assessment_module.Evaluator import Evaluator
+from bias_assessment_module.Logger import Logger
 from bias_assessment_module.ModelHandler import ModelHandler
-import json
+from bias_assessment_module.config.EmbeddingsClustererConfig import EmbeddingsClustererConfig
+from bias_assessment_module.config.ModelConfig import ModelConfig
+from bias_assessment_module.config.WeatConfig import WeatConfig
 
-from bias_assessment_module.TestResult import TestResult
-
+LOG_SUFFIX = ".log"
+RESULTS_SUFFIX = "_results.txt"
+FULL_RESULTS_SUFFIX = "_results_full.txt"
+CLUSTERING_RESULTS_SUFFIX = "_results_clusters.txt"
 
 class BiasAssessmentModule():
-    def __init__(self, config_filename):
-        with open(config_filename, "r") as config_file:
-            config = json.load(config_file)
+    def __init__(self, config):
         self._config = config
-        # if args.corpus == "w2v":
-        #     with open(config, "r") as jsonFile:
-        #         data = json.load(jsonFile)
-        #     data["model"]["corpus_name"] = args.corpus
-        #     with open(config, "w") as jsonFile:
-        #         json.dump(data, jsonFile)
+        self._model_config = ModelConfig(config["model"])
+        self._model_clusterer_config = EmbeddingsClustererConfig(config["clustering"])
+        self._weat_configs = self.create_weat_configs()
+        self._model_handler = ModelHandler.create_and_load(self._model_config)
+        self._logger = Logger(self._model_handler.model_id)
+        self._bias_assessor = BiasAssessor.create(self._model_handler.models)
+
+    def create_weat_configs(self):
+        weat_configs = {}
+        for bias_category in self._config["weat_lists"]:
+            weat_config_json = self._config["weat_lists"][bias_category]
+            weat_config_json["name"] = bias_category
+            weat_config_object = WeatConfig(weat_config_json)
+            weat_configs[bias_category] = weat_config_object
+        return weat_configs
+
+    def run_weat(self, bias_categories):
+        weat_configs = []
+        for bias_category_name in bias_categories:
+            weat_configs.append(self._weat_configs[bias_category_name])
+        self._run_weat(weat_configs)
 
 
-        self._model_handler = ModelHandler.create_and_load(config["model"])
-        self._bias_assessor = BiasAssessor.create(self._model_handler.models, config["weat_lists"])
+    def run_weat_with_clusters(self, bias_categories_to_cluster):
+        clusterer = EmbeddigsClusterer.create(self.model_handler.models[0], self._model_clusterer_config)
+        weat_configs = []
+        for bias_category_name in bias_categories_to_cluster:
+            bias_category = self._weat_configs[bias_category_name]
+            score_for_word_in_cluster = clusterer.calculate_score(bias_category)
+            target_words_from_clusters = clusterer.get_target_words(score_for_word_in_cluster)
+            for x_target_words, y_target_words in target_words_from_clusters:
+                weat_config_for_cluster = bias_category.copy({
+                    "x": x_target_words,
+                    "y": y_target_words
+                })
+                weat_configs.append(weat_config_for_cluster)
+        self._run_weat(weat_configs, [clusterer.model])
+
+
+    def _run_weat(self, weat_configs, models=None):
+        model_id = self.model_handler.model_id
+        self._logger.clear_log(LOG_SUFFIX)
+        self._logger.test_results_dump(RESULTS_SUFFIX, [], False)  # delete old entries in the results-file
+        self._logger.test_results_dump(FULL_RESULTS_SUFFIX, [], False)  # delete old entries in the results-file
+        for weat_config in weat_configs:
+            try:
+                # try for each corpus
+                full_test_results = self.bias_assessor.run_bias_test(weat_config,
+                                                                     self._model_config.number_of_permutations,
+                                                                     models)
+                evaluated_test_results = Evaluator.evaluate_mean(full_test_results)
+                self._logger.test_result_dump(RESULTS_SUFFIX, evaluated_test_results, True)
+                self._logger.test_results_dump(FULL_RESULTS_SUFFIX, full_test_results, True)
+            except BiasAssessorException as e:
+                message = str(e)
+                self._logger.log(LOG_SUFFIX, message)
+
+
+    @property
+    def config(self):
+        return self._config
 
     @property
     def model_handler(self):
@@ -29,41 +85,3 @@ class BiasAssessmentModule():
     @property
     def bias_assessor(self):
         return self._bias_assessor
-
-
-
-    def run(self, config):
-        pass
-
-        # print(format(model_handler.model.wv.most_similar(positive="cat", topn=10)))
-        # print(format(model_handler.model.wv.most_similar(positive="dog", topn=10)))
-        # print(format(model_handler.model.wv.similarity('queen', 'king')))
-
-
-
-
-
-
-    @staticmethod
-    def test_result_dump(model_name, file_suffix, test_result, append_to_file=False):
-        BiasAssessmentModule.test_results_dump(model_name, file_suffix, [test_result], append_to_file)
-
-
-    @staticmethod
-    def test_results_dump(model_name, file_suffix, test_results, append_to_file=False):
-        mode = "a" if append_to_file else "w"
-        with open(model_name + file_suffix, mode) as file:
-            for model in test_results:
-                BiasAssessmentModule.prettify_test_result(model_name, model)
-                file.write(model_name+
-                    " {_bias_category}\t{_p_value}\t{_cohens_d:.4f}\t{_number_of_permutations}\t{_total_time:.4f}\t{_absent_words}\t{_used_words}\n"
-                        .format(**vars(model)))
-
-    @staticmethod
-    def prettify_test_result(model_name, test_result):
-        print(model_name + " Bias Category: {_bias_category}\t p-value: {_p_value}\t cohen's d: {_cohens_d}\t absent words: {_absent_words}"\
-            .format(**vars(test_result)))
-
-    @property
-    def config(self):
-        return self._config

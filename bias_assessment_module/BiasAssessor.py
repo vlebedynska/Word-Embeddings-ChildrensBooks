@@ -11,40 +11,26 @@ from bias_assessment_module.Utils import Utils
 
 
 class BiasAssessor:
-    def __init__(self, models, config):
+    def __init__(self, models):
         self._models = models
-        self._config = config
 
     @staticmethod
-    def create(models, config):
-        return BiasAssessor(models, config)
+    def create(models):
+        return BiasAssessor(models)
 
-    def bias_test_for_clusters(self, attr_a, attr_b, target_words_from_clusters, bias_category):
-        test_results = []
-        for a_target_words, b_target_words in target_words_from_clusters:
-            for model in self._models:
-                if len(a_target_words) == 0 or len(b_target_words) == 0:
-                    continue
-                test_results.append(self.bias_test(
-                    self._models[0],
-                    attr_a,
-                    attr_b,
-                    a_target_words,
-                    b_target_words,
-                    bias_category
-                ))
-        return test_results
-
-    def start_bias_test(self, bias_category):
+    def run_bias_test(self, bias_category, number_of_permutations, models=None):
         category_test_results = []
-        for model in self._models:
+        if models is None:
+            models = self._models
+        for model in models:
             category_test_result = self.bias_test(
                 model,
-                self._config["lists"][bias_category]["attr"]["a"],
-                self._config["lists"][bias_category]["attr"]["b"],
-                self._config["lists"][bias_category]["target"]["x"],
-                self._config["lists"][bias_category]["target"]["y"],
-                bias_category
+                bias_category.a,
+                bias_category.b,
+                bias_category.x,
+                bias_category.y,
+                bias_category.name,
+                number_of_permutations
             )
             category_test_results.append(category_test_result)
         return category_test_results
@@ -59,10 +45,9 @@ class BiasAssessor:
         lambda target_x: len(target_x) > 0,
         lambda target_y: len(target_y) > 0
     )
-    def bias_test(self, model, attr_a, attr_b, target_x, target_y, bias_category):
+    def bias_test(self, model, attr_a, attr_b, target_x, target_y, bias_category, number_of_permutations):
         start_time = time.time()
         wv = model.wv
-        number_of_permutations = self._config["number_of_permutations"]
         a_attrs, a_filtered_out = Utils.filter_list(wv.vocab, attr_a)
         b_attrs, b_filtered_out = Utils.filter_list(wv.vocab, attr_b)
         x_targets, x_filtered_out = Utils.filter_list(wv.vocab, target_x)
