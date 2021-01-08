@@ -2,7 +2,7 @@
   "model": {
     "corpus_path": "data/CLLIP_Corpus",
     "model_path": "data/cache/",
-    "corpus_name": "CLLIP_Corpus",
+    "corpus_name": "Test",
     "amount_of_corpora": 1,
     "size": 150,
     "window": 10,
@@ -11,6 +11,7 @@
     "number_of_permutations": 10
   },
   "clustering": {
+    "use_clustering": false,
     "init": "k-means++",
     "n_clusters": 100,
     "batch_size": 100,

@@ -3,6 +3,7 @@ from sklearn.cluster import MiniBatchKMeans
 
 from bias_assessment_module.BiasAssessor import BiasAssessor
 
+
 class EmbeddigsClusterer:
     def __init__(self, cluster2word, model, config):
         self._model = model
@@ -12,8 +13,8 @@ class EmbeddigsClusterer:
     @staticmethod
     def create(model, config):
 
-        mbk = MiniBatchKMeans(init=config["init"], n_clusters=config["n_clusters"], batch_size=config["batch_size"],
-                              max_no_improvement=config["max_no_improvement"], verbose=["verbose"])
+        mbk = MiniBatchKMeans(init=config.init, n_clusters=config.n_clusters, batch_size=config.batch_size,
+                              max_no_improvement=config.max_no_improvement, verbose=config.verbose)
         mbk.fit(model.wv.vectors)
         cluster2word = {}
         for word, cluster in zip(model.wv.vocab, mbk.labels_):
@@ -24,13 +25,13 @@ class EmbeddigsClusterer:
             cluster_record.append(word)
         return EmbeddigsClusterer(cluster2word, model, config)
 
-    def calculate_score(self, config):
+    def calculate_score(self, weat_config):
         score_for_word_in_cluster = {}
         for cluster in sorted(self._cluster2word.keys()):
             cluster_words = self._cluster2word[cluster]
             word_score = []
             for word in cluster_words:
-                score = BiasAssessor.cosine_means_difference(self._model.wv, word, config["attr"]["a"], config["attr"]["b"])
+                score = BiasAssessor.cosine_means_difference(self._model.wv, word, weat_config.a, weat_config.b)
                 word_score.append((word, score))
             score_for_word_in_cluster.update({cluster: word_score})
         return score_for_word_in_cluster
@@ -49,7 +50,7 @@ class EmbeddigsClusterer:
                 else:
                     x_target_words.append(word)
                     x_target_scores.append(score)
-            x_target_words, y_target_words = self.choose_words(x_target_words, y_target_words, x_target_scores, y_target_scores, self._config["cluster_words_count"])
+            x_target_words, y_target_words = self.choose_words(x_target_words, y_target_words, x_target_scores, y_target_scores, self._config.cluster_words_count)
             target_words.append((x_target_words, y_target_words))
         return target_words
 

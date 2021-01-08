@@ -3,7 +3,7 @@ from shutil import copyfile
 
 import gensim
 
-from bias_assessment_module.ModelSupplier import ModelSupplier
+from bias_assessment_module.supplier.ModelSupplier import ModelSupplier
 
 
 class GAPSupplier(ModelSupplier):
@@ -17,7 +17,7 @@ class GAPSupplier(ModelSupplier):
         return [self._load_model(self._config_to_id())]
 
     def save_models(self):
-        copyfile(self._corpus_path + os.path.sep + self._model_config["corpus_name"], self._config_to_id())
+        copyfile(self._corpus_path + os.path.sep + self._corpus_config["model_file"], self._config_to_id())
 
     def _load_model(self, model_id):
         return gensim.models.fasttext.load_facebook_vectors(model_id)
@@ -26,4 +26,4 @@ class GAPSupplier(ModelSupplier):
         pass #TODO
 
     def _config_to_id(self):
-        return "{model_path}{corpus_name}".format(**self._model_config)
+        return "{0.model_path}".format(self._model_config)

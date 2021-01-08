@@ -27,8 +27,12 @@ class BiasAssessmentModule():
         weat_configs = {}
         for bias_category in self._config["weat_lists"]:
             weat_config_json = self._config["weat_lists"][bias_category]
-            weat_config_json["name"] = bias_category
-            weat_config_object = WeatConfig(weat_config_json)
+            weat_config_json_extracted = {}
+            for entry in weat_config_json:
+                for list_name in weat_config_json[entry]:
+                    weat_config_json_extracted.update({list_name: weat_config_json[entry][list_name]})
+            weat_config_json_extracted["name"] = bias_category
+            weat_config_object = WeatConfig(weat_config_json_extracted)
             weat_configs[bias_category] = weat_config_object
         return weat_configs
 
@@ -65,6 +69,7 @@ class BiasAssessmentModule():
                 # try for each corpus
                 full_test_results = self.bias_assessor.run_bias_test(weat_config,
                                                                      self._model_config.number_of_permutations,
+                                                                     self.log_exception,
                                                                      models)
                 evaluated_test_results = Evaluator.evaluate_mean(full_test_results)
                 self._logger.test_result_dump(RESULTS_SUFFIX, evaluated_test_results, True)
@@ -72,7 +77,13 @@ class BiasAssessmentModule():
             except BiasAssessorException as e:
                 message = str(e)
                 self._logger.log(LOG_SUFFIX, message)
+            except Exception as e:
+                message = str(e)
+                self._logger.log(LOG_SUFFIX, message)
 
+    def log_exception(self, exception):
+        message = str(exception)
+        self._logger.log(LOG_SUFFIX, message)
 
     @property
     def config(self):

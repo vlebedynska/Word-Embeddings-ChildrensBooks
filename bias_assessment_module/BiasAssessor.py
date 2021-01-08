@@ -18,21 +18,24 @@ class BiasAssessor:
     def create(models):
         return BiasAssessor(models)
 
-    def run_bias_test(self, bias_category, number_of_permutations, models=None):
+    def run_bias_test(self, bias_category, number_of_permutations, exception_logging_function, models=None):
         category_test_results = []
         if models is None:
             models = self._models
         for model in models:
-            category_test_result = self.bias_test(
-                model,
-                bias_category.a,
-                bias_category.b,
-                bias_category.x,
-                bias_category.y,
-                bias_category.name,
-                number_of_permutations
-            )
-            category_test_results.append(category_test_result)
+            try:
+                category_test_result = self.bias_test(
+                    model,
+                    bias_category.a,
+                    bias_category.b,
+                    bias_category.x,
+                    bias_category.y,
+                    bias_category.name,
+                    number_of_permutations
+                )
+                category_test_results.append(category_test_result)
+            except Exception as e:
+                exception_logging_function(e)
         return category_test_results
 
     # TODO add subcategories for bias_categories if needed -> for this define "default" bias_subcategory as constant

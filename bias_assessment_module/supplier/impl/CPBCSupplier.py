@@ -5,7 +5,7 @@ from abc import ABC
 import gensim
 from gensim.models import Word2Vec
 
-from bias_assessment_module.ModelAndCorpusSupplier import ModelAndCorpusSupplier
+from bias_assessment_module.supplier.ModelAndCorpusSupplier import ModelAndCorpusSupplier
 
 
 class CPBCSupplier(ModelAndCorpusSupplier):

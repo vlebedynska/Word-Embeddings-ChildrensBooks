@@ -1,3 +1,5 @@
+from preconditions import preconditions
+
 from bias_assessment_module.TestResult import TestResult
 
 
@@ -11,6 +13,9 @@ class Evaluator():
     """
 
     @staticmethod
+    @preconditions(
+        lambda category_test_results: len(category_test_results) > 0
+    )
     def evaluate_mean(category_test_results):
         """
         calculates means of the p-value, cohens_d, number of permuations and total time

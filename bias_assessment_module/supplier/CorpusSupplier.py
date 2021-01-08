@@ -1,7 +1,6 @@
 import os
 from abc import ABC, abstractmethod
 
-from bias_assessment_module.ModelSupplier import ModelSupplier
 
 class CorpusSupplier(ABC):
     """

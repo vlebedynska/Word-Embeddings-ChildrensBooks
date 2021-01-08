@@ -1,32 +1,43 @@
 import argparse
 import json
+import os
 
 from bias_assessment_module.BiasAssessmentModule import BiasAssessmentModule
-from bias_assessment_module.EmbeddingsClusterer import EmbeddigsClusterer
 
 
 def parse_args():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('-c', '--corpus', type=str, choices=['CLLIP_Corpus', 'ft'], default='w2v', help="Corpus name")
+    parser.add_argument('-cr', '--corpus', type=str, choices=['CLLIP_Corpus', 'ChiLit_Corpus', "CPBC_Corpus", "GAP",
+                                                             "GoogleNews"], help="Corpus name")
+    parser.add_argument('-a', '--amount', type=int, help="Amount of sub-corpora: CLLIP_Corpus and СhiLit_Corpus can be "
+                                                         "split in the smaller sub-corpora")
+    parser.add_argument('-s', '--size', type=int, help="Dimensionality of the word vectors")
+    parser.add_argument('-p', '--permutations', type=int, help="Number of permutations for a single WEAT")
+    parser.add_argument('-w', '--window', type=int, help="Maximum distance between the current and predicted word within a sentence")
+    parser.add_argument('-sg', '--skipgram', type=int, choices=[1,0], help="Training algorithm: 1 for skip-gram; 0 CBOW")
+    parser.add_argument('-cl', '--clustering', type=bool, help="If true is set, the detection of new target words is "
+                                                              "performed for the selected bias category. ")
     return parser.parse_args()
 
 
-
-if __name__ == '__main__':
-
-    # parser = argparse.ArgumentParser(description=__doc__)
-    # parser.add_argument('-c', '--corpus', type=str, default='w2v', help="Corpus name")
-    # parser.parse_args()
-
-    # if args.corpus == "w2v":
-    #     with open(config, "r") as jsonFile:
-    #         data = json.load(jsonFile)
-    #     data["model"]["corpus_name"] = args.corpus
-    #     with open(config, "w") as jsonFile:
-    #         json.dump(data, jsonFile)
-
+def main(args):
     with open("config.json", "r") as config_file:
         config = json.load(config_file)
+
+    model_config = config["model"]
+    clustering_config = config["clustering"]
+
+    if args.corpus is not None:
+        model_config["corpus_name"] = args.corpus
+        model_config["corpus_path"] = "data" + os.path.sep + args.corpus
+        model_config["model_path"] = "data" + os.path.sep + "cache" + os.path.sep + args.corpus
+    if args.amount is not None: model_config["amount_of_corpora"] = args.amount
+    if args.size is not None: model_config["size"] = args.size
+    if args.permutations is not None: model_config["number_of_permutations"] = args.permutations
+    if args.window is not None: model_config["window"] = args.window
+    if args.skipgram is not None: model_config["sg"] = args.skipgram
+    if args.clustering is not None:
+        clustering_config["use_clustering"] = args.clustering
 
     module = BiasAssessmentModule(config)
     bias_categories = [
@@ -48,14 +59,20 @@ if __name__ == '__main__':
         "CG1_math_vs_reading",
         "CG2_math_vs_reading",
         "CA1_flowers_vs_insects"
-        ]
+    ]
 
     bias_categories_to_cluster = [
         "G1_career_vs_family"
-        ]
+    ]
 
     module.run_weat(bias_categories)
 
-    # module.run_weat_with_clusters(bias_categories_to_cluster)
+    if clustering_config["use_clustering"]:
+        module.run_weat_with_clusters(bias_categories_to_cluster)
+
+if __name__ == '__main__':
+    main(parse_args())
+
+
 
 
