@@ -25,7 +25,7 @@ class BiasAssessmentModule():
 
     def create_weat_configs(self):
         weat_configs = {}
-        for bias_category in self._config["weat_lists"]:
+        for bias_category  in self._config["weat_lists"]:
             weat_config_json = self._config["weat_lists"][bias_category]
             weat_config_json_extracted = {}
             for entry in weat_config_json:
@@ -40,7 +40,7 @@ class BiasAssessmentModule():
         weat_configs = []
         for bias_category_name in bias_categories:
             weat_configs.append(self._weat_configs[bias_category_name])
-        self._run_weat(weat_configs)
+        self._run_weat_internal(weat_configs)
 
 
     def run_weat_with_clusters(self, bias_categories_to_cluster):
@@ -56,14 +56,12 @@ class BiasAssessmentModule():
                     "y": y_target_words
                 })
                 weat_configs.append(weat_config_for_cluster)
-        self._run_weat(weat_configs, [clusterer.model])
+        self._run_weat_internal(weat_configs, [clusterer.model])
 
-
-    def _run_weat(self, weat_configs, models=None):
-        model_id = self.model_handler.model_id
+    def _run_weat_internal(self, weat_configs, models=None):
         self._logger.clear_log(LOG_SUFFIX)
-        self._logger.test_results_dump(RESULTS_SUFFIX, [], False)  # delete old entries in the results-file
-        self._logger.test_results_dump(FULL_RESULTS_SUFFIX, [], False)  # delete old entries in the results-file
+        self._logger.clear_log(RESULTS_SUFFIX) # delete old entries in the results-file
+        self._logger.clear_log(FULL_RESULTS_SUFFIX)  # delete old entries in the results-file
         for weat_config in weat_configs:
             try:
                 # try for each corpus

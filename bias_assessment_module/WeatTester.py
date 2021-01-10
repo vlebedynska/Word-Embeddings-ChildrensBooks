@@ -15,8 +15,8 @@ def parse_args():
     parser.add_argument('-p', '--permutations', type=int, help="Number of permutations for a single WEAT")
     parser.add_argument('-w', '--window', type=int, help="Maximum distance between the current and predicted word within a sentence")
     parser.add_argument('-sg', '--skipgram', type=int, choices=[1,0], help="Training algorithm: 1 for skip-gram; 0 CBOW")
-    parser.add_argument('-cl', '--clustering', type=bool, help="If true is set, the detection of new target words is "
-                                                              "performed for the selected bias category. ")
+    parser.add_argument('-m', '--mode', type=str, choices=['WEAT', 'Clustering', 'WEAT_and_Clustering'],
+                        help="Running mode.")
     return parser.parse_args()
 
 
@@ -24,8 +24,8 @@ def main(args):
     with open("config.json", "r") as config_file:
         config = json.load(config_file)
 
+    mode = config["mode"]
     model_config = config["model"]
-    clustering_config = config["clustering"]
 
     if args.corpus is not None:
         model_config["corpus_name"] = args.corpus
@@ -36,39 +36,39 @@ def main(args):
     if args.permutations is not None: model_config["number_of_permutations"] = args.permutations
     if args.window is not None: model_config["window"] = args.window
     if args.skipgram is not None: model_config["sg"] = args.skipgram
-    if args.clustering is not None:
-        clustering_config["use_clustering"] = args.clustering
+    if args.mode is not None: mode = args.mode
 
     module = BiasAssessmentModule(config)
-    bias_categories = [
-        "G1_career_vs_family",
-        "G2_maths_vs_arts",
-        "G3_science_vs_arts",
-        "G4_intelligence_vs_appearance",
-        "G5_strength_vs_weakness",
-        "RL1_Christianity_vs_Islam",
-        "RL2_Christianity_vs_Judaism",
-        "RL3_Judaism_vs_Islam",
-        "AG1_young_vs_old",
-        "A1_flowers_vs_insects",
-        "A2_innocent_sheep_vs_cruel_wolf",
-        "A3_naive_bird_vs_clever_fox",
-        "A4_strong_lion_vs_tender_mouse",
-        "A5_faithful_dog_vs_selfish_cat",
-        "CR1_European_American_vs_African_American",
-        "CG1_math_vs_reading",
-        "CG2_math_vs_reading",
-        "CA1_flowers_vs_insects"
-    ]
 
-    bias_categories_to_cluster = [
-        "G1_career_vs_family"
-    ]
+    if mode == "WEAT" or mode == "WEAT_and_Clustering":
+        bias_categories = [
+            "G1_career_vs_family",
+            "G2_maths_vs_arts",
+            "G3_science_vs_arts",
+            "G4_intelligence_vs_appearance",
+            "G5_strength_vs_weakness",
+            "RL1_Christianity_vs_Islam",
+            "RL2_Christianity_vs_Judaism",
+            "RL3_Judaism_vs_Islam",
+            "AG1_young_vs_old",
+            "A1_flowers_vs_insects",
+            "A2_innocent_sheep_vs_cruel_wolf",
+            "A3_naive_bird_vs_clever_fox",
+            "A4_strong_lion_vs_tender_mouse",
+            "A5_faithful_dog_vs_selfish_cat",
+            "CR1_European_American_vs_African_American",
+            "CG1_math_vs_reading",
+            "CG2_math_vs_reading",
+            "CA1_flowers_vs_insects"
+        ]
+        module.run_weat(bias_categories)
 
-    module.run_weat(bias_categories)
-
-    if clustering_config["use_clustering"]:
+    if mode == "Clustering" or mode == "WEAT_and_Clustering":
+        bias_categories_to_cluster = [
+            "G1_career_vs_family"
+        ]
         module.run_weat_with_clusters(bias_categories_to_cluster)
+
 
 if __name__ == '__main__':
     main(parse_args())

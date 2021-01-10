@@ -2,7 +2,7 @@ import json
 import os
 
 from bias_assessment_module.supplier.ModelAndCorpusSupplier import ModelAndCorpusSupplier
-from bias_assessment_module.supplier.impl.CLLICSupplier import CLLICSupplier
+from bias_assessment_module.supplier.impl.CLLIPSupplier import CLLICSupplier
 from bias_assessment_module.supplier.impl.CPBCSupplier import CPBCSupplier
 from bias_assessment_module.supplier.impl.ChiLitSupplier import ChiLitSupplier
 from bias_assessment_module.supplier.impl.GAPSupplier import GAPSupplier

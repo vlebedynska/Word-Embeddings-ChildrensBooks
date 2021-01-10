@@ -2,6 +2,7 @@ from pandas import np
 from sklearn.cluster import MiniBatchKMeans
 
 from bias_assessment_module.BiasAssessor import BiasAssessor
+from bias_assessment_module.Utils import Utils
 
 
 class EmbeddigsClusterer:
@@ -27,11 +28,13 @@ class EmbeddigsClusterer:
 
     def calculate_score(self, weat_config):
         score_for_word_in_cluster = {}
+        a_attrs, _ = Utils.filter_list(self._model.wv.vocab, weat_config.a)
+        b_attrs, _ = Utils.filter_list(self._model.wv.vocab, weat_config.b)
         for cluster in sorted(self._cluster2word.keys()):
             cluster_words = self._cluster2word[cluster]
             word_score = []
             for word in cluster_words:
-                score = BiasAssessor.cosine_means_difference(self._model.wv, word, weat_config.a, weat_config.b)
+                score = BiasAssessor.cosine_means_difference(self._model.wv, word, a_attrs, b_attrs)
                 word_score.append((word, score))
             score_for_word_in_cluster.update({cluster: word_score})
         return score_for_word_in_cluster
