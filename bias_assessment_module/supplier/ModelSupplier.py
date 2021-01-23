@@ -2,6 +2,9 @@ from abc import ABC, abstractmethod
 
 
 class ModelSupplier(ABC):
+    """
+    An abstract class that defines functions for saving and loading the word embedding model.
+    """
 
     @abstractmethod
     def load_models(self):

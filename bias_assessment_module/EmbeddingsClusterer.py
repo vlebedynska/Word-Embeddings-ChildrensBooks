@@ -13,7 +13,12 @@ class EmbeddigsClusterer:
 
     @staticmethod
     def create(model, config):
+        """
 
+        :param model: word embeddings model
+        :param config:
+        :return:
+        """
         mbk = MiniBatchKMeans(init=config.init, n_clusters=config.n_clusters, batch_size=config.batch_size,
                               max_no_improvement=config.max_no_improvement, verbose=config.verbose)
         mbk.fit(model.wv.vectors)

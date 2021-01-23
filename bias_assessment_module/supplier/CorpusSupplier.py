@@ -7,7 +7,7 @@ class CorpusSupplier(ABC):
     :param get_custom_size_corpus get_custom_size_corpus
 
     """
-    CORPUS_SIZE = 68103
+    CORPUS_SIZE = 65008
 
     def _load_data(self, corpora_amount):
         """

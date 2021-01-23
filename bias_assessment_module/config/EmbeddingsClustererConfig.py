@@ -1,4 +1,7 @@
 class EmbeddingsClustererConfig():
+    """
+    A class that holds configuration data for executing the k-means++ algorithm for clustering the vectors of the word embedding model.
+    """
     def __init__(self, config):
         self._config = config
 

@@ -7,6 +7,12 @@ from bias_assessment_module.supplier.ModelAndCorpusSupplier import ModelAndCorpu
 
 
 class ChiLitSupplier(ModelAndCorpusSupplier):
+    """
+    A class that provides concrete implementations of the ModelSupplier,
+    implements the base class ModelAndCorpusSupplier class and thus,
+    concrete functions for loading and saving of the ChiLit Corpus.
+
+    """
 
     def __init__(self, corpus_path, corpus_config, model_config):
         super().__init__(corpus_path, corpus_config, model_config)

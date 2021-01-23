@@ -5,11 +5,11 @@
     "model_path": "data/cache/",
     "corpus_name": "CLLIP_Corpus",
     "amount_of_corpora": 1,
-    "size": 150,
+    "size": 300,
     "window": 10,
     "sg": 1,
     "epochs": 10,
-    "number_of_permutations": 10
+    "number_of_permutations": 100000
   },
   "clustering": {
     "init": "k-means++",
@@ -391,16 +391,16 @@
     "RL3_Judaism_vs_Islam": {
       "attr": {
         "a": [
-          "Abraham",
+          "abraham",
           "jew",
-          "Torah",
+          "torah",
           "synagogue"
         ],
         "b": [
           "Muhammad",
           "Muslim",
           "Koran",
-          "Mosque"
+          "mosque"
         ]
       },
       "target": {
@@ -782,16 +782,16 @@
     "CR1_European_American_vs_African_American": {
       "attr": {
         "a": [
-          "Meredith",
-          "Heather",
-          "Katie",
-          "Betsy"
+          "meredith",
+          "heather",
+          "katie",
+          "betsy"
         ],
         "b": [
-          "Latonya",
-          "Shavonn",
-          "Tashika",
-          "Ebony"
+          "latonya",
+          "shavonn",
+          "tashika",
+          "ebony"
         ]
       },
       "target": {
@@ -812,16 +812,16 @@
     "CG1_math_vs_reading": {
       "attr": {
         "a": [
-          "Ben",
-          "Peter",
-          "John",
-          "Tom"
+          "ben",
+          "peter",
+          "john",
+          "tom"
         ],
         "b": [
-          "Alice",
-          "Jane",
-          "Mary",
-          "Wendy"
+          "alice",
+          "jane",
+          "mary",
+          "wendy"
         ]
       },
       "target": {

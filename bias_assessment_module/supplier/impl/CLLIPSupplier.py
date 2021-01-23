@@ -8,7 +8,7 @@ from gensim.models import Word2Vec
 from bias_assessment_module.supplier.ModelAndCorpusSupplier import ModelAndCorpusSupplier
 
 
-class CLLICSupplier(ModelAndCorpusSupplier):
+class CLLIPSupplier(ModelAndCorpusSupplier):
 
     def __init__(self, corpus_path, corpus_config, model_config):
         super().__init__(corpus_path, corpus_config, model_config)

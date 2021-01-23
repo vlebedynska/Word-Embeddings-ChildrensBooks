@@ -1,4 +1,7 @@
 class TestResult:
+    """
+    A class that stores the WEAT result including the p-value and Cohen’s d.
+    """
 
     def __init__(self, bias_category, p_value, cohens_d, number_of_permutations, total_time, absent_words, used_words):
         self._bias_category = bias_category
@@ -11,6 +14,17 @@ class TestResult:
 
     @staticmethod
     def create(bias_category, p_value, cohens_d, number_of_permutations, total_time, absent_words, used_words):
+        """
+        creates an instance of TestResult.
+        :param bias_category: name of the bias category
+        :param p_value: p-value
+        :param cohens_d: Cohen' d
+        :param number_of_permutations: number of permutations of the merged set of X and Y for the calculation of the one-sided p-value
+        :param total_time: time needed for the WEAT
+        :param absent_words: list of absent target and attribute words
+        :param used_words: list of used target and attribute words
+        :return: new TestResult object
+        """
         test_result = TestResult(bias_category, p_value, cohens_d, number_of_permutations, total_time, absent_words, used_words)
         return test_result
 

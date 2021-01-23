@@ -1,4 +1,7 @@
 class ModelConfig():
+    """
+    A class that holds configuration data for creating, saving and loading the word embedding model.
+    """
     def __init__(self, config):
         self._config = config
 

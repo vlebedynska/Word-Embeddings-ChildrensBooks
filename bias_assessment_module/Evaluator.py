@@ -4,12 +4,8 @@ from bias_assessment_module.TestResult import TestResult
 
 
 class Evaluator():
-    """implements function for creating the mean result from the WEAT results for each bias category
-
-    Methods
-    _______
-    evaluate_mean(category_test_results)
-        calculates means of the p-value,cohens d, number of permutations and total time
+    """
+    A class that implements a helper function to calculate a mean score for multiple test results per bias category.
     """
 
     @staticmethod
@@ -18,10 +14,9 @@ class Evaluator():
     )
     def evaluate_mean(category_test_results):
         """
-        calculates means of the p-value, cohens_d, number of permuations and total time
-
+        calculates means of the p-value, Cohen's d, number of permuations and total time
         :param category_test_results: [[]]
-        :return: TestResult Object in an array
+        :return: new TestResult object
         """
         mean_result = TestResult.create("",0,0,0,0,[],[])
         mean_result.bias_category = category_test_results[0].bias_category
