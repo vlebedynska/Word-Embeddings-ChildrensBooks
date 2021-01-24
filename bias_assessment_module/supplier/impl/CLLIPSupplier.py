@@ -9,6 +9,9 @@ from bias_assessment_module.supplier.ModelAndCorpusSupplier import ModelAndCorpu
 
 
 class CLLIPSupplier(ModelAndCorpusSupplier):
+    """
+
+    """
 
     def __init__(self, corpus_path, corpus_config, model_config):
         super().__init__(corpus_path, corpus_config, model_config)
