@@ -115,6 +115,11 @@ class BiasAssessmentModule():
                 self._logger.log(LOG_SUFFIX, message)
 
     def log_exception(self, exception):
+        """
+        encapsulates exception logging.
+        :param exception: exception object
+        :return: None
+        """
         message = str(exception)
         self._logger.log(LOG_SUFFIX, message)
 

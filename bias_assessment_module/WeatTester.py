@@ -6,7 +6,8 @@ from bias_assessment_module.BiasAssessmentModule import BiasAssessmentModule
 
 
 def parse_args():
-    """ defines and parses arguments that the user passed on application start
+    """
+    defines and parses arguments that the user passed on application start
     :return: arguments parsed
     """
     parser = argparse.ArgumentParser(description=__doc__)
@@ -26,7 +27,8 @@ def parse_args():
 
 
 def main(args):
-    """ Fetches arguments from user input, loads the main configuration from config.json file, merges
+    """
+    fetches arguments from user input, loads the main configuration from config.json file, merges
     the arguments from user input into the configuration, creates an instance of the BiasAssessmentModule,
     depending on the mode executes simple WEATs and/or WEATs on clusters. WEAT bias categories are defined
     inside this function.

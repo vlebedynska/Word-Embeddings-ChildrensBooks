@@ -33,8 +33,8 @@ class ChiLitSupplier(ModelAndCorpusSupplier):
 
     def _load_single_corpus(self):
         """
-        loads a single corpus from the file system.
-        :return: list of sentences of a corpus, where a sentence represents a books
+        loads a single corpus from the file system and removes lines that specify the title of the book and the author.
+        :return: list of sentences of a corpus, where a sentence represents a book
         """
         output_text = []
         for file_name in sorted(self.get_files(), key=str.lower):
@@ -48,7 +48,7 @@ class ChiLitSupplier(ModelAndCorpusSupplier):
 
     def _load_multiple_corpora(self):
         """
-        loads multiple corpora from the file system.
+        loads multiple corpora from the file system and removes lines that specify the title of the book and the author.
         :return: yields corpus data line by line
         """
         my_files = [file_name for file_name in self.get_files()]
