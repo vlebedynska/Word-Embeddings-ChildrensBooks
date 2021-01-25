@@ -2,8 +2,7 @@ import math
 import random
 import time
 from preconditions import preconditions
-
-from pandas import np
+import numpy as np
 
 from bias_assessment_module.BiasAssessorException import BiasAssessorException
 from bias_assessment_module.TestResult import TestResult
@@ -71,6 +70,7 @@ class BiasAssessor:
         :param target_y: list Y of target words
         :param bias_category: name of the bias category
         :param number_of_permutations: number of permutations of the merged set of X and Y for the calculation of the one-sided p-value
+        :raise BiasAssessorException
         :return: test result object
         """
         start_time = time.time()

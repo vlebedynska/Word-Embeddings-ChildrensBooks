@@ -25,6 +25,7 @@ class CorpusSupplier(ABC):
         generates multiple sub-corpora from the corpus data.
         :param corpus_size: length of the single sub-corpus
         :param corpora_amount: amount of the sub-corpora to be created
+        :raise ValueError
         :return: list of sub-corpora
         """
         corpora = []

@@ -1,5 +1,5 @@
 {
-  "mode": "WEAT",
+  "mode": "Clustering",
   "model": {
     "corpus_path": "data/CLLIP_Corpus",
     "model_path": "data/cache/",
@@ -9,7 +9,7 @@
     "window": 10,
     "sg": 1,
     "epochs": 10,
-    "number_of_permutations": 100000
+    "number_of_permutations": 10
   },
   "clustering": {
     "init": "k-means++",

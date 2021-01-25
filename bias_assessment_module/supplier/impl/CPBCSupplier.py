@@ -1,5 +1,4 @@
 import re
-from abc import ABC
 
 
 import gensim
@@ -27,7 +26,7 @@ class CPBCSupplier(ModelAndCorpusSupplier):
 
     def _load_model(self, model_id):
         """
-        loads a word2vec model by the model id.
+        loads a word2vec model by the model id, used as path to the file where the model is stored.
         :param model_id: model id
         :return: word2vec model
         """
@@ -37,6 +36,7 @@ class CPBCSupplier(ModelAndCorpusSupplier):
         """
         raises an error if the multiple corpora are to be loaded.
         :return: new ValueError instance
+        :raise ValueError
         """
         raise ValueError(self._model_config["corpus_name"] + " is too short to be partitioned in several corpora.")
 

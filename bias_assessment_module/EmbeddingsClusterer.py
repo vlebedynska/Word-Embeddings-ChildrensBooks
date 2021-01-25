@@ -1,4 +1,4 @@
-from pandas import np
+import numpy as np
 from sklearn.cluster import MiniBatchKMeans
 
 from bias_assessment_module.BiasAssessor import BiasAssessor
@@ -7,7 +7,7 @@ from bias_assessment_module.Utils import Utils
 
 class EmbeddigsClusterer:
     """
-    implements the unsupervised approach to finding new target words sets from the embedding's own vocabulary
+    implements the unsupervised approach to finding new target word sets from the embedding's own vocabulary
      using the k-means++ algorithm for clustering word embeddings.
     """
 
@@ -43,7 +43,7 @@ class EmbeddigsClusterer:
         """
         calculates score for each word in a cluster.
         :param weat_config: WeatConfig object
-        :return: map cluster
+        :return: map cluster => word scores grouped and mapped by cluster id
         """
         score_for_word_in_cluster = {}
         # filter out attribute words from the list A that are not in model vocabulary.
@@ -64,7 +64,7 @@ class EmbeddigsClusterer:
     def get_target_words(self, score_for_word_in_cluster):
         """
         creates target words lists X and Y.
-        :param score_for_word_in_cluster:
+        :param score_for_word_in_cluster: map cluster => word scores grouped and mapped by cluster id
         :return: list of tuples consisting of the target word list X and the target word list Y.
         """
         target_words = []

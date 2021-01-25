@@ -1,5 +1,4 @@
 import random
-from abc import ABC
 import xml.etree.ElementTree as ET
 
 import gensim
@@ -62,7 +61,7 @@ class CLLIPSupplier(ModelAndCorpusSupplier):
 
     def _load_model(self, model_id):
         """
-        loads a word2vec model by the model id.
+        loads a word2vec model by the model id, used as path to the file where the model is stored.
         :param model_id: model id
         :return: word2vec model
         """

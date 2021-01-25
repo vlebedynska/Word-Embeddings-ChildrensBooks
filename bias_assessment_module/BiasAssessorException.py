@@ -4,7 +4,7 @@ class BiasAssessorException(Exception):
     """
     def __init__(self, missing_attr_target_lists, bias_category):
         """
-        creates an exception in case of error occurrence during the WEAT execution.
+        creates an exception in case of error occurring during the WEAT execution.
         :param missing_attr_target_lists: list of missing target and/or attribute words
         :param bias_category: name of the bias category
         """
