@@ -1,8 +1,8 @@
 # Bias Assessment Module for Measuring Bias in Word Embeddings Trained on Children’s Literature
 ## Data
-1) The 19th Century Children’s Literature corpus (ChiLit corpus), which amounts to 4.4 million words (Čermáková 2017),
-2) The Corpus-based Learning about Language In the Primary-school (CLLIP corpus), which is part of the British National Corpus and comprises texts written for a child audience in the 20th century with a total of 820350 words (Thompson and Sealey 2007). 
-3) The Children’s Picture-Book Corpus (CPB corpus), which contains a total of 65,008 words in 100 children’s picture books published in the 20th century (Montag, Jones, and Smith 2015).
+1) The 19th Century Children’s Literature corpus (ChiLit corpus), which amounts to 4.4 million words (Čermáková, A. (2017). The GLARE 19th Century Children’s Literature Corpus in CLiC. Retrieved from https://blog.bham.ac.uk/clic-dickens/2017/11/28/the-glare-19th-century-childrens-literature-corpus-in-clic/),
+2) The Corpus-based Learning about Language In the Primary-school (CLLIP corpus), which is part of the British National Corpus and comprises texts written for a child audience in the 20th century with a total of 820350 words (Thompson, P., & Sealey, A. (2007). Through children's eyes?: Corpus evidence of the features of children's literature. International Journal of Corpus Linguistics, 12, 1-23. doi:10.1075/ijcl.12.1.03tho) 
+3) The Children’s Picture-Book Corpus (CPB corpus), which contains a total of 65,008 words in 100 children’s picture books published in the 20th century (Montag, J., Jones, M., & Smith, L. (2015). The Words Children Hear: Picture Books and the Statistics for Language Learning. Psychological Science, 26. doi:10.1177/0956797615594361)
 
 GoogleNews & GAP embeddings https://github.com/alfredomg/GeBNLP2019
 
