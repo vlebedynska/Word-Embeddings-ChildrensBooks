@@ -84,8 +84,8 @@ class BiasAssessor:
             raise BiasAssessorException([attr_name for attr_name in args if len(args[attr_name]) == 0], bias_category)
         else:
             # balance the number of elements in the sets of two concepts
-            a_attrs, b_attrs = Utils.balance_sets(a_attrs, b_attrs)
-            x_targets, y_targets = Utils.balance_sets(x_targets, y_targets)
+            a_attrs, b_attrs = Utils.balance_sets(a_attrs, b_attrs, wv.vocab)
+            x_targets, y_targets = Utils.balance_sets(x_targets, y_targets, wv.vocab)
 
             p_value = BiasAssessor.weat_rand_test(wv, x_targets, y_targets, a_attrs, b_attrs, number_of_permutations)
             cohens_d = BiasAssessor.get_cohens_d(wv, x_targets, y_targets, a_attrs, b_attrs)

@@ -65,17 +65,17 @@ def main(args):
             "G5_strength_vs_weakness",
             "RL1_Christianity_vs_Islam",
             "RL2_Christianity_vs_Judaism",
-            "RL3_Judaism_vs_Islam",
-            "AG1_young_vs_old",
-            "A1_flowers_vs_insects",
-            "A2_innocent_sheep_vs_cruel_wolf",
-            "A3_naive_bird_vs_clever_fox",
-            "A4_strong_lion_vs_tender_mouse",
-            "A5_faithful_dog_vs_selfish_cat",
-            "CR1_European_American_vs_African_American",
-            "CG1_math_vs_reading",
-            "CG2_math_vs_reading",
-            "CA1_flowers_vs_insects"
+            # "RL3_Judaism_vs_Islam",
+            # "AG1_young_vs_old",
+            # "A1_flowers_vs_insects",
+            # "A2_innocent_sheep_vs_cruel_wolf",
+            # "A3_naive_bird_vs_clever_fox",
+            # "A4_strong_lion_vs_tender_mouse",
+            # "A5_faithful_dog_vs_selfish_cat",
+            # "CR1_European_American_vs_African_American",
+            # "CG1_math_vs_reading",
+            # "CG2_math_vs_reading",
+            # "CA1_flowers_vs_insects"
         ]
         module.run_weat(bias_categories)
 
@@ -83,9 +83,9 @@ def main(args):
 
         # comment out categories for which the WEAT should not be executed
         bias_categories_to_cluster = [
-            "CG1_math_vs_reading",
-            "CG2_math_vs_reading",
-            "CA1_flowers_vs_insects"
+            # "CG1_math_vs_reading",
+            # "CG2_math_vs_reading",
+            # "CA1_flowers_vs_insects"
         ]
         module.run_weat_with_clusters(bias_categories_to_cluster)
 

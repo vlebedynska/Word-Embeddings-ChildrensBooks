@@ -47,7 +47,7 @@ class Utils:
         return False
 
     @staticmethod
-    def balance_sets(first_set, second_set):
+    def balance_sets(first_set, second_set, vocab):
         """
         creates two lists of equal size if the length the lists is not equal.
         :param first_set: first list
@@ -57,10 +57,25 @@ class Utils:
         # number = (a_attrs - b_attrs) if len(a_attrs) >= len(b_attrs) else (b_attrs-a_attrs)
         if len(first_set) != len(second_set):
             set_size = min(len(first_set), len(second_set))
-            first_set_copy = random.sample(first_set, k=set_size)
-            second_set_copy = random.sample(second_set, k=set_size)
+
+            first_set_copy = Utils.get_most_used_words(first_set, set_size, vocab)
+            second_set_copy = Utils.get_most_used_words(second_set, set_size, vocab)
+            # first_set_copy = random.sample(first_set, k=set_size)
+            # second_set_copy = random.sample(second_set, k=set_size)
         else:
             first_set_copy = first_set.copy()
             second_set_copy = second_set.copy()
         return first_set_copy, second_set_copy
 
+    @staticmethod
+    def get_most_used_words(word_set, set_size, vocab):
+        set_with_most_used_words = []
+        temp_set = {}
+        for word in word_set:
+            word_frequency = vocab[word].count
+            temp_set.update({word_frequency: word})
+        for i in sorted(temp_set.keys(), reverse=True):
+            if len(set_with_most_used_words) >= set_size:
+                break
+            set_with_most_used_words.append(temp_set[i])
+        return set_with_most_used_words
