@@ -7,6 +7,8 @@
 GoogleNews & GAP embeddings https://github.com/alfredomg/GeBNLP2019
 
 # Getting Started
+If you are only interested in the results or need a description of the modular architecture, please refer to: https://github.com/vlebedynska/word-embeddings-childrens-books/blob/master/Description_of_the_module_and_results.pdf
+
 ## Interpreter
 The project is developed with `Python 3.7`
 ## Dependencies
